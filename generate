@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -z $1 ] || [ -z $2 ]; then
+	echo "Usage:"
+	echo "      ./generate entity Entity"
+	exit
+fi
+
+sed -e "s/<Template>/$2/g" lib/template/Model.class.php | sed -e "s/<template>/$1/g" > model/$2Model.class.php
+echo Installing model model/$2Model.class.php 
+
+sed -e "s/<Template>/$2/g" lib/template/Controller.class.php | sed -e "s/<template>/$1/g" > controller/$2Controller.class.php
+echo Installing controller controller/$2Controller.class.php
+
