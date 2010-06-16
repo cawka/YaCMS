@@ -17,6 +17,36 @@ class TableBaseModel extends BaseModel
 		$this->myIsOffset=$offsets;
 	}
 
+	public function createSQL( )
+	{
+		$ret="CREATE TABLE $this->myTableName ( \n";
+		if( !isset($this->myColumns[$this->myId]) )
+		{
+			$ret.="\t$this->myId integer primary key not null auto_increment\n";
+			$i=1;
+		}
+		else
+			$i=0;
+
+		foreach( $this->myColumns as $column )
+		{
+			if( !$column->mySQL ) continue;
+
+			if( $i>0 ) 
+				$ret.="\t, ";
+			else
+				$ret.="\t";
+			$ret.="$column->myName\t".$column->getSQLType()."\n";
+
+			$i++;
+		}
+		if( isset($this->myColumns[$this->myId]) )
+			$ret.="\t, PRIMARY KEY($this->myId)\n";
+		$ret.=");\n";
+
+		return $ret;
+	}
+
 	public function getAddCtrl( $name=NULL )
 	{
 		global $Auth; if( !$Auth->isAllowed("add") ) return "";

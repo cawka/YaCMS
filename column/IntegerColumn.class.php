@@ -52,6 +52,11 @@ class IntegerColumn extends TextColumn
 	{
 		return $this->extractPreviewValue( $row );
 	}
+
+	public function getSQLType( )
+	{
+		return "integer";
+	}
 }
 
 ?>

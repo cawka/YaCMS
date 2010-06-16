@@ -4,13 +4,13 @@ class HiddenColumn extends BaseColumn
 {
 	var $myValue;
 	
-	function __construct( $name,$value )
+	function HiddenColumn( $name,$value )
 	{
 		parent::__construct( $name,"",false,NULL );
 		$this->myValue=$value;
 	}
 	
-	function getValue( &$row )
+	function getValue( )
 	{
 		return $this->myValue;
 	}
@@ -33,25 +33,24 @@ class HiddenColumn extends BaseColumn
 	}
 }
 
-class HiddenColumnType2 extends BaseColumn 
+class HiddenColumnType3 extends BaseColumn 
 {
-	var $myValue;
+	var $myField;
 	
-	function __construct( $name )
+	function HiddenColumnType3( $name,$field )
 	{
-		parent::__construct( $name,"",false,NULL );
-//		print $this->myName;
-//		die;
+		$this->myField=$field;
+		parent::BaseColumn( $name,"",false,NULL );
 	}
 	
 	function getValue( &$row )
 	{
-		return $row[$this->myName];
+		return $row[$this->myField];
 	}
 	
 	function getInput( &$row )
 	{
-		if( isset($this->myValue) )
+		if( $this->getValue($row)!==null )
 		{
 			return "<input type='hidden' name='$this->myName' value='".$this->getValue($row)."' />";
 		}
@@ -62,3 +61,4 @@ class HiddenColumnType2 extends BaseColumn
 	}
 }
 
+?>

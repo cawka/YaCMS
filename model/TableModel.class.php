@@ -165,16 +165,22 @@ class TableModel extends TableSortModel
 		}
 		else
 		{
-			$sql="SELECT * FROM $this->myTableName WHERE $this->myId";
-			if( $request[$this->myId]!="" ) 
-				$sql.="='".$request[$this->myId]."'"; 
-			else 
-				$sql.=" IS NULL ";
+			$sql="SELECT * FROM $this->myTableName WHERE ".$this->rowId( $request );
 			if( isset($this->myLang) ) $sql.=" AND $this->myLang='$LANG'";
 			$this->myData=$this->myDB->GetRow( $sql );
 		}
 	}
-	
+
+	protected function rowId( $request )
+	{
+		$ret=$this->myId;
+		if( $request[$this->myId]!="" )
+			$ret.="=".$this->myDB->qstr($request[$this->myId]);
+		else
+			$ret.=" IS NULL ";
+		return $ret;
+	}
+
 	public function getRowToShow( &$request )
 	{
 		return $this->getRowToEdit( $request ); //by default - same action

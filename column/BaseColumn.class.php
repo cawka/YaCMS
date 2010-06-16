@@ -121,5 +121,9 @@ class BaseColumn
 			$ret="";
 		return $ret."<$this->myName>".$this->extractXMLValue($request)."</$this->myName>\n";
 	}
+
+	public function getSQLType( )
+	{
+		return "text";	
+	}
 }
-?>

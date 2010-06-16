@@ -43,6 +43,11 @@ class DoubleColumn extends TextColumn
 	{
 		return $this->extractPreviewValue( $row );
 	}
+
+	public function getSQLType( )
+	{
+		return "double precision";
+	}
 }
 
 ?>

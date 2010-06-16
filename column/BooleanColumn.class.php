@@ -48,6 +48,11 @@ class BooleanColumn extends BaseColumn
 		$ret="<!-- $this->myBriefMsgRH: t=>True f=>False -->\n";
 		return $ret.parent::getXML( $row );
 	}
+
+	function getSQLType( )
+	{
+		return "boolean";
+	}
 }
 
 ?>

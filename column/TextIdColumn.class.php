@@ -39,4 +39,10 @@ class TextIdColumn extends TextColumn
 		else
 			return "'".$this->prepareIndex($request["new_".$this->myName])."'";
 	}
+
+	function getSQLType( )
+	{
+		return "varchar(255)";
+	}
 }
+

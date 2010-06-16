@@ -114,5 +114,10 @@ class DateTimeColumn extends GroupColumn
 		
 		return parent::getInput( $row );
 	}
+
+	public function getSQLType( )
+	{
+		return "timestamp without timezone";
+	}
 }
-?>
+
