@@ -29,4 +29,3 @@ class MenuModel extends TableModel
 		}
 }
 
-?>

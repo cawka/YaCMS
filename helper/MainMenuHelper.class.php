@@ -6,15 +6,20 @@ class MainMenuHelper
 	public $myData;
 	public $mySubData;
 
+	public $mySelectedId;
+
 	public function __construct( ) 
 	{
 		global $DB;
 		$this->myData=$this->getMenuLevel( NULL );
+
+		foreach( $this->myData as $menu ) 
+			if( $menu['isselected'] ) $this->mySelectedId=$menu['id'];
 	}
 
 	private function getMenuLevel( $parent_id )
 	{
-		global $DB, $GLOBAL_PREFIX;
+		global $DB, $PREFIX;
 
 		// change to memcached version
 		$res=$DB->Execute( "SELECT * FROM menu WHERE parent_id".
@@ -28,7 +33,7 @@ class MainMenuHelper
 		{
 			$item['sublevel']=$this->getMenuLevel( $item['id'] );
 
-			if( $_SERVER['REQUEST_URI']==$GLOBAL_PREFIX.$item['link'] ||
+			if( $_SERVER['REQUEST_URI']==$PREFIX.$item['link'] ||
 		        (isset($item['sublevel']) && isset($item['sublevel'][0]['sel']))	)
 			{
 					$item['isselected']=true;

@@ -1,6 +1,6 @@
 <?php
 
-include_once( BASEDIR . "/class/daisydiff/HTMLDiff.php" );
+include_once( "lib/daisydiff/HTMLDiff.php" );
 
 class TextRevisionsHelper extends BaseTableThickBoxHelper 
 {

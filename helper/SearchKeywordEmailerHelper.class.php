@@ -1,7 +1,7 @@
 <?php
 
-require_once( BASEDIR . "/class/searchkeys.class.php" );
-require_once( BASEDIR . "/class/Mail.class.php" );
+require_once( "lib/searchkeys.class.php" );
+require_once( "lib/Mail.class.php" );
 
 class SearchKeywordEmailerHelper extends search_keywords
 {
@@ -18,17 +18,19 @@ class SearchKeywordEmailerHelper extends search_keywords
 
 				global $DB, $SETTINGS;
 
-				$sql="INSERT INTO keywords (date,ip,engine,keywords,referer) values(NOW(),".
+				$sql="INSERT INTO keywords (date,ip,engine,keywords,referer,url) values(NOW(),".
 						$DB->qstr( $_SERVER['REMOTE_ADDR'] ).",".
 						$DB->qstr( $keys[2] ).",".
 						$DB->qstr( $keys[1] ).",".
-						$DB->qstr( $_SERVER['HTTP_REFERER'] ).")";
+						$DB->qstr( $_SERVER['HTTP_REFERER'] ).",".
+						$DB->qstr( $_SERVER['REQUEST_URI'] ).
+						")";
 				$DB->Execute( $sql );
 				
 $text=
 "Hi ".$SETTINGS["user.name"].",
 
-Someone from IP address $_SERVER[REMOTE_ADDR] (http://www.geoiptool.com/en/?IP=$_SERVER[REMOTE_ADDR]) just searched for you on $keys[2], and found your home page.
+Someone from IP address $_SERVER[REMOTE_ADDR] (http://www.geoiptool.com/en/?IP=$_SERVER[REMOTE_ADDR]) just searched for you on $keys[2], and found your home page (http://lasr.cs.ucla.edu$_SERVER[REQUEST_URI]).
 
 He or she used keywords: \"$keys[1]\"
 
@@ -40,7 +42,7 @@ Your Home Page Robot";
 $html=
 "Hi ".$SETTINGS["user.first_name"].",<br/>
 <br/>
-Someone from IP address <a href='http://www.geoiptool.com/en/?IP=$_SERVER[REMOTE_ADDR]'>$_SERVER[REMOTE_ADDR]</a> just searched you on $keys[2], and found your home page.<br/>
+Someone from IP address <a href='http://www.geoiptool.com/en/?IP=$_SERVER[REMOTE_ADDR]'>$_SERVER[REMOTE_ADDR]</a> just searched you on $keys[2], and found your home page (<a href=\"http://lasr.cs.ucla.edu$_SERVER[REQUEST_URI]\">http://lasr.cs.ucla.edu$_SERVER[REQUEST_URI]</a>).<br/>
 <br/>
 He or she used keywords: <a href=\"$_SERVER[HTTP_REFERER]\"><strong>$keys[1]</strong></a><br/>
 <br/>
