@@ -9,7 +9,9 @@ class BaseTableHelper extends BaseHelper
 	
 	public function form_action( &$model, $action, $validate,$params=array(),&$options )
 	{
-		$ret="<form action='/$model->myPhp/$action' class='validate' ";
+		global $PREFIX;
+
+		$ret="<form action='$PREFIX$model->myPhp/$action' class='validate' ";
 		foreach( $options as $key=>$value )
 		{
 			$ret.=" $key='$value'";
@@ -33,8 +35,10 @@ class BaseTableHelper extends BaseHelper
 	
 	public function link_popup( &$model, $action, $name, $title, &$params, $method="get" )
 	{
+		global $PREFIX;
+
 		$ret="";
-		$url="/$model->myPhp/$action";
+		$url="$PREFIX$model->myPhp/$action";
 		$query=http_build_query( $params,'', '&amp;' );
 		if( $query!="" ) $url.="?$query";
 		
@@ -45,8 +49,9 @@ class BaseTableHelper extends BaseHelper
 
 	public function link_popup_confirm( &$model, $action, $name, &$params, $confirm_text, $method="get" )
 	{
+		global $PREFIX;
 		$ret="";
-		$url="/$model->myPhp/$action";
+		$url="$PREFIX$model->myPhp/$action";
 		$query=http_build_query( $params,'', '&amp;' );
 		if( $query!="" ) $url.="?$query";
 		
@@ -57,7 +62,9 @@ class BaseTableHelper extends BaseHelper
 	
 	public function img_button( $button, $name )
 	{
-		return "<img style='margin:0;padding:0;display:inline' height='12px' src='/images/admin/$button.gif' alt='$name' title='$name' class='tooltip' />";
+		global $PREFIX;
+
+		return "<img style='margin:0;padding:0;display:inline' height='12px' src='$PREFX"."images/admin/$button.gif' alt='$name' title='$name' class='tooltip' />";
 	}
 }
 
