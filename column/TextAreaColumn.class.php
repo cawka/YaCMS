@@ -12,7 +12,7 @@ class TextAreaColumn extends TextColumn
 		$ret.= "<textarea id='$this->myName' class=\"".implode(" ", $classes)."\"  name='$this->myName' ";
 		if( $this->myToolTip!="" ) $ret.=" title='$this->myToolTip' ";
 		$ret.=">";
-		$ret.=$this->getValue( $row )."</textarea><br/>\n".
+		$ret.=htmlspecialchars($this->getValue( $row ) )."</textarea><br/>\n".
 		$this->getInputPostfix( );
 		
 		return $ret;
