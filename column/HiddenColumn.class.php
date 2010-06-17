@@ -2,7 +2,7 @@
 
 class HiddenColumn extends BaseColumn 
 {
-	var $myValue;
+	public $myValue;
 	
 	function HiddenColumn( $name,$value )
 	{

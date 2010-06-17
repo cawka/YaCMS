@@ -18,7 +18,7 @@ function cms_autoload( $classname )
 	if( preg_match("/^(.+)(column|model|controller|helper)$/i",$classname,$matches) )
 	{
 		$prefix=strtolower($matches[2]);
-		@include_once( "$prefix/$classname.class.php" ); //ignore all errors, if any
+		include_once( "$prefix/$classname.class.php" ); //ignore all errors, if any
 	}
 }
 

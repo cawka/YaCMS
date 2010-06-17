@@ -6,6 +6,7 @@ class ListColumn extends BaseColumn
 	public $myClass;
 	protected $myExtraStuff="";
 	protected $myFirstElements=array();
+	public $myAdditional="";
 	
 	function __construct( $name,$descr,$required=NULL,$options=array(),$brief=false,$brmsg="",$class="" )
 	{
@@ -31,7 +32,7 @@ class ListColumn extends BaseColumn
 		$ret="<select class='addann_select$this->myClass' name='$this->myName' ";
 		if( $this->myToolTip!="" ) $ret.=" title='$this->myToolTip' ";
 		$ret.=$this->myExtraStuff;
-		$ret.=">\n";
+		$ret.=" $this->myAdditional >\n";
 
 		$ret.=$this->getInputOptions( $this->myFirstElements,$this->getValue($row) );
 		$ret.=$this->getInputOptions( $this->myOptions,      $this->getValue($row) );

@@ -3,22 +3,6 @@
 class BibwikiModel extends TableModel 
 {
 	protected $myFields;
-/*	public $myTypes=array( "bibtex='book'"=>array("books","Books"),
-						   "bibtex='misc'"=>array("misc","Public Service Reports"),
-						   "bibtex='incollection'"=>array("chapters","Chapters in Books"),
-						   "bibtex='patent'"=>array("patents","Patents"),
-						   "(bibtex='article' OR bibtex='conference')"=>array("articles","Papers Published in Professional and Scholarly Journals and in Procedings of Conferences and Symposia"),
-						   "(bibtex='techreport' OR bibtex='phdthesis')"=>array("techreports","Papers Published as Technical Reports"),
-				   );
- */
-
-//	protected $current_search;
-
-//	protected function extraWhere( &$request )
-//	{
-//			return $this->current_search . parent->extraWhere;
-//	}
-
 
 	public function __construct( $php )
 	{
@@ -26,7 +10,7 @@ class BibwikiModel extends TableModel
 //		$DB->debug=true;
 //		print_r( $_SERVER );
 		parent::__construct( $DB,$php,"bibwiki",array(
-			"biblio_type1"=>new HiddenColumn("biblio_type", $_REQUEST['biblio_type'] ),
+			"biblio_type1"=>new HiddenColumn("biblio_type", NULL ),
 			"biblio_type"=>new ListColumn("biblio_type","Section","required", array(
 				"books"=>"Books",
 				"book_chapters"=>"Chapters",
@@ -50,6 +34,7 @@ class BibwikiModel extends TableModel
 					);
 		
 		$this->myOrder="date DESC";
+		$this->RefreshByReload=true;
 
 		$this->mySortColumns=array(
 	            "date"=>array(
@@ -61,11 +46,12 @@ class BibwikiModel extends TableModel
 
 	public function collectData( &$request )
 	{
-		$this->myStatic=new StaticPagesModel( "staticPages" );
-		$this->myStatic->myHelper=$this->myHelper;
-		$req=array( "id"=>"bibwiki-$request[biblio_type]" );
-		$this->myStatic->getRowToShow( $req );
+//		$this->myStatic=new StaticPagesModel( "staticPages" );
+//		$this->myStatic->myHelper=$this->myHelper;
+//		$req=array( "id"=>"bibwiki-$request[biblio_type]" );
+//		$this->myStatic->getRowToShow( $req );
 
+		$this->myColumns["biblio_type1"]->myValue=$request['biblio_type'];
 		parent::collectData( $request );
 	}
 
@@ -259,8 +245,8 @@ class BibwikiModel extends TableModel
 			(1900<=$this->myEntry["year"] && $this->myEntry["year"]<=2200) )
 		{
 			$this->myColumns['date']=
-				new HiddenExactValueColumn( "date",    $this->myDB->qstr($this->myEntry["year"]."-".
-					$this->extractMonth( $this->myEntry["month"] )."-01") );
+				new HiddenExactValueColumn( "date",    $this->myEntry["year"]."-".
+					$this->extractMonth( $this->myEntry["month"] )."-01" );
 		}
 	}
 
@@ -286,15 +272,15 @@ class BibwikiModel extends TableModel
 					$this->myColumns['pdf'],
 					$this->myColumns['slides'],
 					$this->myColumns['biblio_type'],
-					new HiddenExactValueColumn( 'entry', $this->myDB->qstr($entry) ),
+					new HiddenExactValueColumn( 'entry', $entry ),
 					);
 
 			if( isset($request['year']) && $request["year"]!="" &&
 	            (1900<=$request["year"] && $request["year"]<=2200) )
 			{
 				$this->myColumns['date']=
-					new HiddenExactValueColumn( "date",$this->myDB->qstr($request["year"]."-".
-													   $this->extractMonth( $request["month"] )."-01") );
+					new HiddenExactValueColumn( "date",$request["year"]."-".
+													   $this->extractMonth( $request["month"] )."-01" );
 			}
 			else
 				unset( $this->myColumns['date'] );

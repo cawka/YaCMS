@@ -15,7 +15,7 @@ function utf8_strlen($str) {
 class TextColumn extends BaseColumn 
 {
 	var $myAdditional="";
-	var $myLimit=400; //maximum 400 symbols
+	var $myLimit=1048576; // a huge limit
 	var $myClass="";
 	var $myOptionMsg="";
 	var $myIsOptionBrief=true;
@@ -62,7 +62,7 @@ class TextColumn extends BaseColumn
 
 		if( $this->myToolTip!="" ) $ret.=" title='$this->myToolTip' ";
 		if( $this->myLimit>0 ) $ret.=" MAXLENGTH='$this->myLimit' ";
-		$ret.= " />";
+		$ret.= " $this->myAdditional />";
 		if( $this-myOptionMsg!="" ) $ret.=" $this->myOptionMsg";
 		   	   
 		return $ret;

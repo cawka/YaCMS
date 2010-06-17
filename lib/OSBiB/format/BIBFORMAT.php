@@ -48,15 +48,15 @@ class BIBFORMAT
 		$this->bibtex = $bibtex;
 		if($this->bibtex)
 		{
-			include_once( BASEDIR . "/class/OSBiB/STYLEMAPBIBTEX.php");
+			include_once( "lib/OSBiB/STYLEMAPBIBTEX.php");
 			$this->styleMap = new STYLEMAPBIBTEX();
 		}
 		else
 		{
-			include_once( BASEDIR . "/class/OSBiB/STYLEMAP.php");
+			include_once( "lib/OSBiB/STYLEMAP.php");
 			$this->styleMap = new STYLEMAP();
 		}
-		include_once( BASEDIR . "/class/OSBiB/UTF8.php" );
+		include_once( "lib/OSBiB/UTF8.php" );
 		$this->utf8 = new UTF8();
 /**
 * Highlight preg pattern and CSS class for HTML display
@@ -109,7 +109,7 @@ class BIBFORMAT
 		$styleFile = file_exists($uc) ? $uc : $lc;
 		if(!$fh = fopen($styleFile, "r"))
 			return array(FALSE, FALSE, FALSE, FALSE, FALSE);
-		include_once( BASEDIR . "/class/OSBiB/PARSEXML.php" );
+		include_once( "lib/OSBiB/PARSEXML.php" );
 		$parseXML = new PARSEXML($this);
 		list($info, $citation, $footnote, $common, $types) = $parseXML->extractEntries($fh);
 		fclose($fh);
@@ -194,7 +194,7 @@ class BIBFORMAT
 						$data = $elements['_DATA'];
 						if($array['_NAME'] == 'independent')
 						{
-							$split = split("_", $elements['_NAME']);
+							$split = preg_split("/_/", $elements['_NAME']);
 							$this->{$type}[$array['_NAME']][$split[1]] = $data;
 						}
 						else
@@ -246,7 +246,7 @@ class BIBFORMAT
 						{
 							if($fArray['_NAME'] == 'independent')
 							{
-								$split = split("_", $elements['_NAME']);
+								$split = preg_split("/_/", $elements['_NAME']);
 								$this->{$footnoteType}[$fArray['_NAME']][$split[1]] = $elements['_DATA'];
 							}
 							else
@@ -1063,7 +1063,7 @@ class BIBFORMAT
 			$firstName = stripslashes($creator['firstname']);
 		else if($creator['firstname']) // Initial only of first name.  'firstname' field may actually have several 'firstnames'
 		{
-			$fn = split(" ", stripslashes($creator['firstname']));
+			$fn = preg_split("/ /", stripslashes($creator['firstname']));
 			$firstTime = TRUE;
 			foreach($fn as $name)
 			{

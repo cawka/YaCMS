@@ -4,8 +4,8 @@
  *
  */
 
-include_once( BASEDIR . "/class/OSBiB/format/BIBFORMAT.php" );
-require_once( BASEDIR . "/class/OSBiB/format/bibtexParse/PARSEENTRIES.php" );
+include_once( "lib/OSBiB/format/BIBFORMAT.php" );
+require_once( "lib/OSBiB/format/bibtexParse/PARSEENTRIES.php" );
 
 class BibwikiHelper extends BaseTableThickBoxHelper 
 {
@@ -13,9 +13,9 @@ class BibwikiHelper extends BaseTableThickBoxHelper
 
 	function __construct( )
 	{
-		$this->bibformat=new BIBFORMAT( BASEDIR . "/class/OSBiB", TRUE );
+		$this->bibformat=new BIBFORMAT( CMSDIR . "/lib/OSBiB", TRUE );
 		list($info, $citation, $footnote, $styleCommon, $styleTypes) =
-		$this->bibformat->loadStyle( BASEDIR . "/class/OSBiB/styles/bibliography/", "ieee2" );
+		$this->bibformat->loadStyle( CMSDIR . "/lib/OSBiB/styles/bibliography/", "ieee2" );
 		$this->bibformat->getStyle( $styleCommon, $styleTypes, $footnote );
 
 //		print_r( $styleTypes );
@@ -34,6 +34,7 @@ class BibwikiHelper extends BaseTableThickBoxHelper
 			$parse->extractEntries( );
 
 			list($preamble, $strings, $entries) = $parse->returnArrays();
+
 			foreach( $entries as &$entry ) $entry=preg_replace( "/{|}/","",$entry );
 			$this->bibformat->preProcess( $entries[0]['bibtexEntryType'], $entries[0] );
 			$ret=$this->bibformat->map(). " ".$entries[0]['note'];

@@ -4,7 +4,7 @@ class MySmarty extends Smarty
 {
 	function __construct( )
 	{
-		global $SETTINGS;
+		global $SETTINGS, $PREFIX;
 
 		parent::__construct( );
 
@@ -31,16 +31,19 @@ class MySmarty extends Smarty
 
         $this->assign( "SITEURL", SITEURL );
 		$this->assign( "SETTINGS", $SETTINGS );
+		$this->assign( "PREFIX",   $PREFIX );
 
-//		$this->register->templateFunction( "isAdmin", "isAdmin" );
-//		$this->register->templateFunction( "isUserLogged", "isUserLogged" );
+		$this->assign( "menu", new MainMenuHelper() );
+
+		$this->register->templateFunction( "isAdmin", "isAdmin" );
+		$this->register->templateFunction( "isUserLogged", "isUserLogged" );
 		
-//		if( isUserLogged() )
-//		{
-//			$this->assign( "login",   $_SESSION['login'] );
-//			$this->assign( "u_name",  $_SESSION['fullname'] );
-//			$this->assign( "u_group", $_SESSION['company'] );
-//		}
+		if( isUserLogged() )
+		{
+			$this->assign( "login",   $_SESSION['login'] );
+			$this->assign( "u_name",  $_SESSION['fullname'] );
+			$this->assign( "u_group", $_SESSION['company'] );
+		}
 	}
 }
 

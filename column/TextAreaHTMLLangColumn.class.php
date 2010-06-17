@@ -4,7 +4,7 @@ class TextAreaHTMLLangColumn extends TextAreaLangColumn
 {
 	function getInputPostfix( $lang, $lang_id )
 	{
-		global $langdata;
+		global $langdata, $PREFIX;
 		$name="$this->myName"."_$lang";
 
 		return "<script type='text/javascript'>
@@ -16,8 +16,8 @@ window.addEvent('domready',function(){
         var editor=CKEDITOR.replace( '$name', {height: 400} );
         CKEditors.set( '$name', '$name' );
 
-        CKFinder.setupCKEditor( editor, '/class/ckfinder/' );
-//        CKEDITOR.config.contentsCss='/css/reklama.css';
+        CKFinder.setupCKEditor( editor, '$PREFIX"."lib/ckfinder/' );
+//        CKEDITOR.config.contentsCss='$PREFIX"."css/site.css';
     } );
         </script>";
 	}

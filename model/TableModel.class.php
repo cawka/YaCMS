@@ -103,7 +103,7 @@ class TableModel extends TableSortModel
 		foreach( $this->mySortColumns as $key=>&$value ) { if( $key==$sort_temp ) { $sort=$value; break;} }
 		if( isset($sort) )
 		{
-			if( isset($_REQUEST['desc']) )
+			if( isset($request['desc']) )
 				$this->myOrder=$sort["desc"];
 			else
 				$this->myOrder=$sort["asc"];
@@ -119,7 +119,7 @@ class TableModel extends TableSortModel
 			{ 
 				if( $where!="" ) $where.=" AND ";
 				$where.=$col->myName;
-				if( $col->getInsert( $_REQUEST )=="NULL" )
+				if( $col->getInsert( $request )=="NULL" )
 					$where.=" IS NULL ";
 				else 
 					$where.="=".$col->getInsert( $request );

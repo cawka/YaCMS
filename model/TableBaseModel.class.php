@@ -51,11 +51,11 @@ class TableBaseModel extends BaseModel
 	{
 		global $Auth; if( !$Auth->isAllowed("add") ) return "";
 
-		if( !isset($name) ) $name=$this->myHelper->img_button("new","Добавить");
+		if( !isset($name) ) $name=$this->myHelper->img_button("new","Add");
 
 		return $this->myHelper->link_popup( $this,"add",
 											$name,
-											"Добавление",
+											"Add",
 											$this->getColumnParams( ) );
 	}
 
@@ -63,12 +63,12 @@ class TableBaseModel extends BaseModel
 	{
 		global $Auth; if( !$Auth->isAllowed("edit") ) return "";
 
-		if( !isset($name) ) $name=$this->myHelper->img_button("edit","Редактировать");
+		if( !isset($name) ) $name=$this->myHelper->img_button("edit","Edit");
 
 		return $this->myHelper->link_popup(
 						$this,"edit",
 						$name,
-						"Редактирование",
+						"Edit",
 						$this->getColumnParams( array($this->myId=>$row[$this->myId]) ) );
 	}
 
@@ -78,9 +78,9 @@ class TableBaseModel extends BaseModel
 
 		return $this->myHelper->link_popup_confirm(
 						$this,"delete",
-						$this->myHelper->img_button("delete","Удалить"),
+						$this->myHelper->img_button("delete","Delete"),
 						$this->getColumnParams( array($this->myId=>$row[$this->myId]) ),
-						"Вы подтверждаете удаление?" );
+						"Are you sure?" );
 	}
 
 	public function getCurPage( &$request,$count )
@@ -117,7 +117,7 @@ class TableBaseModel extends BaseModel
 	{
 		global $LANG,$langdata;
 		$langdata=array(
-			"navi_page"=>"Страница",
+			"navi_page"=>"Page",
 		);
 
 		if( $this->myElementCount<=$this->myElementsPerPage ) return ""; //no need to special navigation control

@@ -9,7 +9,7 @@ class BaseController
 	 *
 	 * @var bool
 	 */
-	protected $myUseSmartyFetch=false;
+	public $myUseSmartyFetch=false;
 	public $myHelper;
 	public $myAction;
 

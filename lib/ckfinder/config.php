@@ -1,7 +1,8 @@
 <?php
 
-require_once( "config.php" );
-new PermissionsHelper();
+require_once( resolveUrl("/") . "../_config.php" );
+new PermissionsHelper( );
+
 /*
  * ### CKFinder : Configuration File - Basic Instructions
  *
@@ -23,17 +24,7 @@ new PermissionsHelper();
  */
 function CheckAuthentication()
 {
-	// WARNING : DO NOT simply return "true". By doing so, you are allowing
-	// "anyone" to upload and list the files in your server. You must implement
-	// some kind of session validation here. Even something very simple as...
-
-	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
-
-	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
-	// user logs in your system. To be able to use session variables don't
-	// forget to add session_start() at the top of this file.
-
-	return isUserLogged();
+	return isAdmin( );
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
@@ -63,7 +54,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = $GLOBAL_PREFIX.'data/';
+$baseUrl = $PREFIX.'data/';
 /*
 $baseDir : the path to the local directory (in the server) which points to the
 above $baseUrl URL. This is the path used by CKFinder to handle the files in
@@ -80,8 +71,10 @@ Examples:
 	$baseDir = resolveUrl($baseUrl);
 
 ATTENTION: The trailing slash is required.
-*/
-$baseDir = $GLOBAL_PREFIX_FS.'data/';
+ */
+
+$baseDir = resolveUrl($baseUrl);
+
 
 /*
  * ### Advanced Settings

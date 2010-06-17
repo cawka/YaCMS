@@ -4,10 +4,8 @@ class TextAreaHTMLColumn extends TextAreaColumn
 {
 	function getInputPostfix( )
 	{
-		global $langdata;
-		$GLOBAL_PREFIX="/";
+		global $langdata, $PREFIX;
 		
-//		return "<script>CKEDITOR.replace( '$this->myName' );</script>";
 		return "<script type='text/javascript'>
 window.addEvent('domready',function(){
         if (CKEDITOR.instances['$this->myName']) {
@@ -17,9 +15,10 @@ window.addEvent('domready',function(){
         var editor=CKEDITOR.replace( '$this->myName', {height: 400} );
         CKEditors.set( '$this->myName', '$this->myName' );
 
-        CKFinder.setupCKEditor( editor, '/class/ckfinder/' );
-//        CKEDITOR.config.contentsCss='/css/reklama.css';
+        CKFinder.setupCKEditor( editor, '$PREFIX"."lib/ckfinder/' );
+        CKEDITOR.config.contentsCss='$PREFIX"."css/site.css';
     } );
         </script>";
 	}
 }
+
