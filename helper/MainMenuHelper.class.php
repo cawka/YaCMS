@@ -13,8 +13,11 @@ class MainMenuHelper
 		global $DB;
 		$this->myData=$this->getMenuLevel( NULL );
 
-		foreach( $this->myData as $menu ) 
-			if( $menu['isselected'] ) $this->mySelectedId=$menu['id'];
+		if( isset($this->myData) )
+		{
+			foreach( $this->myData as $menu ) 
+				if( $menu['isselected'] ) $this->mySelectedId=$menu['id'];
+		}
 	}
 
 	private function getMenuLevel( $parent_id )
