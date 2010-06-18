@@ -13,6 +13,7 @@ class AuthHelper
 		if( $_SESSION['group']=="0" ) return;
 
 		$this->myRights=$this->getRights( $_SESSION['group'] );
+		if( !is_array($this->myRights) ) $this->myRights=array();
 		
 		if( isset($_SESSION['group']) )
 		{ //all public rights also granted to logged users
@@ -24,7 +25,7 @@ class AuthHelper
 	protected function getRights( $group )
 	{
 		global $RIGHTS;
-		
+
 		return $RIGHTS[$group];
 	}
 	
