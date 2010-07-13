@@ -7,17 +7,32 @@ class MainMenuHelper
 	public $mySubData;
 
 	public $mySelectedId;
+	public $mySelectedTitle;
+
+	public $myLink;
 
 	public function __construct( ) 
 	{
 		global $DB;
+
+		$stuff=preg_split( "/\?/", $_SERVER['REQUEST_URI'] );
+		$this->myLink=$stuff[0];
+
 		$this->myData=$this->getMenuLevel( NULL );
 
 		if( isset($this->myData) )
 		{
-			foreach( $this->myData as $menu ) 
-				if( $menu['isselected'] ) $this->mySelectedId=$menu['id'];
+			foreach( $this->myData as $menu )
+			{
+				if( $menu['isselected'] ) 
+				{
+					$this->mySelectedId=$menu['id'];
+					$this->mySelectedTitle=$menu['name'];
+				}
+			}
 		}
+
+//		print_r( $this );
 	}
 
 	private function getMenuLevel( $parent_id )
@@ -36,7 +51,7 @@ class MainMenuHelper
 		{
 			$item['sublevel']=$this->getMenuLevel( $item['id'] );
 
-			if( $_SERVER['REQUEST_URI']==$PREFIX.$item['link'] ||
+			if( $this->myLink==$PREFIX.$item['link'] ||
 		        (isset($item['sublevel']) && isset($item['sublevel'][0]['sel']))	)
 			{
 					$item['isselected']=true;

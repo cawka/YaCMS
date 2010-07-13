@@ -1,6 +1,6 @@
 <?php
 
-class MySmarty extends Smarty 
+class MyBaseSmarty extends Smarty
 {
 	function __construct( )
 	{
@@ -32,8 +32,6 @@ class MySmarty extends Smarty
         $this->assign( "SITEURL", SITEURL );
 		$this->assign( "SETTINGS", $SETTINGS );
 		$this->assign( "PREFIX",   $PREFIX );
-
-		$this->assign( "menu", new MainMenuHelper() );
 
 		$this->register->templateFunction( "isAdmin", "isAdmin" );
 		$this->register->templateFunction( "isUserLogged", "isUserLogged" );

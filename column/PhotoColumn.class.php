@@ -2,14 +2,8 @@
 
 class PhotoColumn extends BaseColumn 
 {
-	var $myWidth;
-	var $myHeight;
-	
-	function __construct( $name,$descr,$required=NULL,$width,$height,$brief=false,$brmsg="" )
+	function __construct( $name,$descr,$required=NULL,$width=NULL,$height=NULL,$brief=false,$brmsg="" )
 	{
-		$this->myWidth=$width;
-		$this->myHeight=$height;
-		$descr.="<br/><small>Картинка формата JPG, GIF или PNG размера ".$this->myWidth."x".$this->myHeight."</small>";
 		parent::__construct( $name,$descr,true,$required,$brief,$brmsg );
 	}
 	
@@ -25,7 +19,7 @@ class PhotoColumn extends BaseColumn
 		<script type='text/javascript'>
 			function set_$this->myName(val){ updateImage('$this->myName',val); };
 		</script>
-        <input type=\"button\" class=\"button\" onClick=\"BrowserPopup('$this->myName');\" value=\"Каталог загрузок\">\n";
+        <input type=\"button\" class=\"button\" onClick=\"BrowserPopup('$this->myName');\" value=\"Browse...\">\n";
 		return $ret;
 
 	}

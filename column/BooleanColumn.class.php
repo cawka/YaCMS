@@ -16,14 +16,24 @@ class BooleanColumn extends BaseColumn
 	function getInsert( &$request )
 	{
 		if( !isset($request[$this->myName]) || $request[$this->myName]=="" )
-			return "'FALSE'";
+		{
+			if( DB_ENGINE=="postgres" )
+				return "'FALSE'";
+			else
+				return "0";
+		}
 		else
-			return "'TRUE'";
+		{
+			if( DB_ENGINE=="postgres" )
+				return "'TRUE'";
+			else
+				return "1";
+		}
 	}
 
 	function getValue( &$row )
 	{
-		if( isset($row[$this->myName]) && $row[$this->myName]=='t' ) 
+		if( isset($row[$this->myName]) && ($row[$this->myName]=='t' || $row[$this->myName]=='1') )
 			return "TRUE";
 		else
 			return "FALSE";
@@ -31,13 +41,13 @@ class BooleanColumn extends BaseColumn
 	
 	function getInput( &$row )
 	{
-		return "<input type='checkbox' name='$this->myName' ".
+		return "<input type='checkbox' id='$this->myName' name='$this->myName' ".
 			   "value='t' ".($this->getValue($row)=='TRUE'?"checked":"")." />&nbsp;$this->myDescrRH";
 	}
 
 	function extractValue( &$row )
 	{
-		if( $row[$this->myName]=='t' ) 
+		if( $row[$this->myName]=='t' || $row[$this->myName]=='1')
 			return $this->myBriefMsgRH;
 		else 
 			return "";

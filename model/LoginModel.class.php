@@ -20,6 +20,7 @@ class LoginModel extends BaseModel
 	
 	public function clearSessionData( )
 	{
+		LoginHelper::clearLastLogin( );
 		foreach( $this->mySessionData as $key=>$val ) unset( $_SESSION[$val] );
 	}
 	

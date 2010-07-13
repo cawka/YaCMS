@@ -16,6 +16,12 @@ class APCHelper
 	{
 		global $CACHE_SERVERS;
 
+		if( sizeof($CACHE_SERVERS)==0 )
+		{
+			$this->myIsEnabled=false;
+			return;
+		}
+
 		$this->myIsEnabled=true;//isAdmin()?false:$enable;
 		$this->myTTL=$ttl;
 		

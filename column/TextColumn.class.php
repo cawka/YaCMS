@@ -22,11 +22,12 @@ class TextColumn extends BaseColumn
 	var $myValidate=array();
 	protected $htmlType="text";
 	
-	function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="",$class="",$opt_msg="",$readonly=false,$opt="" )
+	function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="",$class="",$opt_msg="",$readonly=false,$opt="", $limit=1048576 )
 	{
 		parent::__construct( $name,$descr,true,$required,$brief,$brmsg,$readonly );
 		$this->myClass=$class;
 		$this->myOptionMsg=$opt_msg;
+		$this->myLimit=$limit;
 		if( $opt!="" ) $this->myIsOptionBrief=false;
 		if( $required ) array_push( $this->myValidate, "required" );
 	}
@@ -63,7 +64,7 @@ class TextColumn extends BaseColumn
 		if( $this->myToolTip!="" ) $ret.=" title='$this->myToolTip' ";
 		if( $this->myLimit>0 ) $ret.=" MAXLENGTH='$this->myLimit' ";
 		$ret.= " $this->myAdditional />";
-		if( $this-myOptionMsg!="" ) $ret.=" $this->myOptionMsg";
+		if( $this->myOptionMsg!="" ) $ret.=" $this->myOptionMsg";
 		   	   
 		return $ret;
 	}

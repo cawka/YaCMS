@@ -168,6 +168,12 @@ class TableModel extends TableSortModel
 			$sql="SELECT * FROM $this->myTableName WHERE ".$this->rowId( $request );
 			if( isset($this->myLang) ) $sql.=" AND $this->myLang='$LANG'";
 			$this->myData=$this->myDB->GetRow( $sql );
+
+			if( !$this->myData )
+			{
+				$this->myData=$request;
+				$this->myData['new_item']=true;
+			}
 		}
 	}
 
