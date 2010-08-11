@@ -67,7 +67,7 @@ class GroupColumn extends BaseColumn
 		foreach( $this->myColumns as $col )
 		{
 			//if( $ret!="" ) $ret.=",";
-			$ret.=$col->myDescription."&nbsp;".$col->getInput( $row )." &nbsp; ";
+			$ret.=$col->myDescription." ".$col->getInput( $row )." ";
 		}
 		return $ret;
 	}

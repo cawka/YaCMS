@@ -9,14 +9,15 @@ class ListDBColumn extends ListColumn
 	protected $myTblName;
 	
 	function __construct( $name,$descr,$required,$db_name,
-						  $db_key,$db_val )
+		$db_key,$db_val,
+		$brief=false,$brmsg="",$class="" )
 	{
 		$this->myTblName=$db_name;
 		$this->myKey=$db_key;
 		$this->myVal=$db_val;
 		$this->myOrder="$this->myVal";
 		
-		parent::__construct( $name,$descr,$required );
+		parent::__construct( $name,$descr,$required,array(),$brief,$brmsg,$class );
 	}
 	
 	public function getOptions( )

@@ -2,9 +2,13 @@
 
 class DateColumn extends BaseColumn 
 {
-	function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="" )
+	private $myDefault="";
+
+	function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="",$default="" )
 	{
 		parent::__construct( $name,$descr,true,$required,$brief,$brmsg );
+
+		$this->myDefault=$default;
 	}
 	
 	function getValue( &$row )
@@ -15,36 +19,24 @@ class DateColumn extends BaseColumn
 	
 	function getInput( &$row )
 	{
-		$form="kform";
-
 		if( $this->getValue($row)!="" )
 		{
 			$value=date("Y-m-d",strtotime($this->getValue($row)) );
 		}
 		else 
 		{
+			$value=$this->myDefault;
 			//$value=date("Y-m-d");
 		}
 
-		$ret="<input type='text' class='i_int tooltip' title='Укажите дату в формате ГГГГ-ММ-ДД (например 2007-12-05)' ".
+		$ret="<input type='text' class='i_int";
+		if( isset($this->myRequired) ) $ret.=" required";
+		$ret.="' title='$this->myRequired' ".
 			 " name=\"$this->myName\" id=\"$this->myName\" value='$value' />";
 		$ret.="<script type='text/javascript'>
-			new Calendar( { $this->myName: 'Y-m-d' }, { offset: 1, navigation: 2 } );
+			new Calendar( { $this->myName: 'Y-m-d' }, { offset: 1, navigation: 1, direction: -1 } );
 		</script>";
-//		$ret= 
-//		"<SCRIPT LANGUAGE=\"JavaScript\" ID=\"js_$this->myName\">
-//		var cal_$this->myName = new CalendarPopup( );
-//		cal_$this->myName.showYearNavigation( );
-//		</SCRIPT>
-//		
-//		<INPUT TYPE=\"text\" NAME=\"$this->myName\" VALUE=\"$value\" SIZE=25 tmt:datepattern='YYYY-MM-DD' tmt:message=\"Укажите дату в формате ГГГГ-ММ-ДД (например 2007-12-05)\" ";
-//		if( isset($this->myRequired) )
-//		{
-//			$ret.=" tmt:required=\"true\" ";
-//		}
-//		$ret.=">
-//		<A HREF=\"#\" onClick=\"cal_$this->myName.select( document.forms.$form.$this->myName,'anchor_$this->myName','yyyy-MM-dd'); return false;\" TITLE=\"cal_$this->myName.select(document.forms.$form.$this->myName,'anchor_$this->myName','yyyy-MM-dd'); return false;\" NAME=\"anchor_$this->myName\" ID=\"anchor_$this->myName\">Выбрать дату</A>
-//		";
+
 		return $ret;
 	}
 }

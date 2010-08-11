@@ -7,7 +7,7 @@ class PasswordColumn extends TextColumn
 	
 	function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="",$primary=true,$checkto="" )
 	{
-		parent::__construct( $name,$descr,$required,$brief,$brmsg );
+		parent::__construct( $name,$descr,$required,$brief,$brmsg, "","",0,"", 50 );
 		
 		if( $checkto!="" ) 
 		{
