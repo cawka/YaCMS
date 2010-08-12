@@ -28,10 +28,18 @@ class PasswordColumn extends TextColumn
 		
 		if( $this->myPrimary ) 
 		{
-			if( isset($this->myRequired) && $request[$this->myName]=="" )
+			if( isset($this->myRequired) )
 			{
-				$this->myError="Password is required";
-				return false;
+				if(	$request[$this->myName]=="" )
+				{
+					$this->myError="Password is required";
+					return false;
+				}
+				else if( strlen($request[$this->myName])<6 )
+				{
+					$this->myError="Password should be at least 6 characters long";
+					return false;
+				}
 			}
 
 			return true;

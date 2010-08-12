@@ -23,7 +23,18 @@ class EmailColumn extends  TextColumn
 		else 
 			return $row[$this->myName];
 	}
-	
+
+	function checkBeforeSave( &$request )
+	{
+		if( !EmailHelper::verifyEmail($request[$this->myName]) )
+		{
+			$this->myError="Invalid email address";
+			return false;
+		}
+
+		return parent::checkBeforeSave( $request );
+	}
+
 	function extractAdminValue( &$row )
 	{
 		return parent::extractValue( $row );

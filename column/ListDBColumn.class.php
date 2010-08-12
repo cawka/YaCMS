@@ -48,13 +48,13 @@ class ListDBColumn extends ListColumn
 	
 	function extractValue( &$row )
 	{
-		if( !isset($this->myOptions) ) $this->getOptions( );
+		if( sizeof($this->myOptions)==0 ) $this->getOptions( );
 		return parent::extractValue( $row );
 	}
 	
 	function checkBeforeSave( &$row )
 	{
-		if( !isset($this->myOptions) ) $this->getOptions( );
+		if( sizeof($this->myOptions)==0 ) $this->getOptions( );
 		return parent::checkBeforeSave( $row );
 	}
 

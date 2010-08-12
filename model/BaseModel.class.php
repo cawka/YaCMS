@@ -52,21 +52,18 @@ class BaseModel
 	
 	public function validateSave( &$request )
 	{
-		$error="";
 		foreach( $this->myColumns as $col )
 		{
 			if( $col->myIsReadonly ) continue;
 
-
 			$ret=$col->checkBeforeSave( $request );
 			if( !$ret ) 
 			{
-				if( $error!="" ) $error.="<br/>";
-				$error.=$col->myError;
+				return $col->myError;
 			}
 		}
 
-		return $error;
+		return "";
 	}
 	
 	protected function getColumnParams( $params=array() )
