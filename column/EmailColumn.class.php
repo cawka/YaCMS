@@ -4,7 +4,7 @@ class EmailColumn extends  TextColumn
 {
 	function __construct( $name,$descr,$isreq,$required=NULL,$brief=false,$brmsg="" )
 	{
-		parent::__construct( $name,$descr,$isreq?$required:NULL,$brief,$brmsg );
+		parent::__construct( $name,$descr,$isreq?$required:NULL,$brief,$brmsg,"","",false,"",255 );
 				
 		array_push( $this->myValidate, "validate-email" );
 	}

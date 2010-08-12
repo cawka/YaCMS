@@ -22,7 +22,7 @@ class APCHelper
 			return;
 		}
 
-		$this->myIsEnabled=true;//isAdmin()?false:$enable;
+		$this->myIsEnabled=$enable;//isAdmin()?false:$enable;
 		$this->myTTL=$ttl;
 		
 		if( $this->myIsEnabled )

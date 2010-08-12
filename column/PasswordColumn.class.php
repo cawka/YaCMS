@@ -26,25 +26,39 @@ class PasswordColumn extends TextColumn
 	{
 		global $langdata;
 		
-		if( !$this->myPrimary ) return true;
+		if( $this->myPrimary ) 
+		{
+			if( isset($this->myRequired) && $request[$this->myName]=="" )
+			{
+				$this->myError="Password is required";
+				return false;
+			}
+
+			return true;
+		}
+		
 		if( $request[$this->myName]!=$request[$this->myEqualTo] )
 		{
-			$this->myError=$langdata['reg_password_mistmach'];//"Введенные пароли не совпадают<br>";
+			$this->myError="Password mistmatch";
 			return false;
 		}
 		return true;
 	}
-	
+
+	function getUpdateName( )
+	{
+		return $this->myName."_md5";
+	}
+
 	function getInsert( &$request )
 	{
-		if( !$this->myPrimary ) return "";
-		return parent::getInsert( $request );	
-	}
-	
-	function getUpdate( &$request )
-	{
-		if( !$this->myPrimary ) return "";
-		return parent::getUpdate( $request );	
+		global $DB;
+		if( !isset($request[$this->myName]) || $request[$this->myName]=="" )
+			return "NULL";
+		else
+		{
+			return $DB->qstr( md5(stripslashes($request[$this->myName])) );
+		}
 	}
 	
 	function getValue( &$row )

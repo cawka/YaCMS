@@ -105,4 +105,8 @@ class BaseModel
 //		return $ret.$ret2;
 		return http_build_query( $this->getColumnParams(),NULL,"&" );
 	}
+
+	public function placeBlocks( $postion )
+	{
+	}
 }

@@ -8,7 +8,7 @@ require_once( "lib/adodb/adodb.inc.php" );
 require_once( "lib/Smarty/Smarty.class.php" );
 require_once( "lib/MySmarty.class.php" );
 
-$theAPC=new APCHelper( false, 300 );
+$theAPC=new APCHelper( true, 300 );
 $COOKIES=new CookieHelper( "", 3600*24*365 );
 
 session_start( );
@@ -21,9 +21,10 @@ function cms_autoload( $classname )
 
 		foreach( $paths as $path )
 		{
-			if( is_file("$path/$classname.class.php") )
+			//print "$path/".strtolower($matches[2])."/$classname.class.php<br/>";
+			if( is_file("$path/".strtolower($matches[2])."/$classname.class.php") )
 			{
-				include_once( "$classname.class.php" ); //ignore all errors, if any
+				include_once( strtolower($matches[2])."/$classname.class.php" ); //ignore all errors, if any
 				break;
 			}
 		}

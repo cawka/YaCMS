@@ -2,10 +2,19 @@
 
 class StaticTextColumn extends BaseColumn 
 {
-	function extractValue( &$row )
+	public function __construct( $name, $description )
 	{
-		global $langdata;
-		
-		return $langdata[$row[$this->myName]];
+		parent::__construct( $name, $description );
+		$this->mySQL=false;
+	}	
+
+	public function extractValue( &$row )
+	{
+		return $row[$this->myName];
+	}
+
+	public function getInput( &$row )
+	{
+		return $this->extractValue( $row );
 	}
 }

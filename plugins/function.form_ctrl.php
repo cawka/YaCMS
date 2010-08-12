@@ -4,7 +4,7 @@ function smarty_function_form_ctrl( $params,&$smarty )
 {
 	$model=&$params['model'];
 	$data=&$params['data'];
-	$action=$params['action']; if( $action=="" ) $action="save";
+	$action=$params['action']; 
 	$validate=$params['validate'];
 	
 	unset($params['model']);
