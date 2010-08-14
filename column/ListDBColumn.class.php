@@ -10,12 +10,13 @@ class ListDBColumn extends ListColumn
 	
 	function __construct( $name,$descr,$required,$db_name,
 		$db_key,$db_val,
-		$brief=false,$brmsg="",$class="" )
+		$brief=false,$brmsg="",$class="",$where=array() )
 	{
 		$this->myTblName=$db_name;
 		$this->myKey=$db_key;
 		$this->myVal=$db_val;
 		$this->myOrder="$this->myVal";
+		$this->myWhere=$where;
 		
 		parent::__construct( $name,$descr,$required,array(),$brief,$brmsg,$class );
 	}

@@ -103,6 +103,11 @@ class BaseModel
 		return http_build_query( $this->getColumnParams(),NULL,"&" );
 	}
 
+	public function isId( )
+	{
+		return false;
+	}
+
 	public function placeBlocks( $postion )
 	{
 	}

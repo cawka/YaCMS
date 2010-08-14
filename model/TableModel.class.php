@@ -65,7 +65,6 @@ class TableModel extends TableSortModel
 					$ret.=$colname["where"];
 					break;
 				default:
-					$ret.="$col->myName='".$request[$col->myName]."'";
 					break;
 				}
 			}
@@ -82,7 +81,11 @@ class TableModel extends TableSortModel
 	{
 		if( $this->myIsOffset )
 		{
-			$count=$this->myDB->GetOne( "SELECT count(*) FROM (select * FROM $this->myTableName $where LIMIT $this->myMaxElementCount) c" );
+			if( $this->myMaxElementCount>0 )
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM (select * FROM $this->myTableName $where LIMIT $this->myMaxElementCount) c" );
+			else
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM $this->myTableName $where" );
+
 			$offset=$this->getCurPage( $request,$count );
 
 			$res=$this->myDB->SelectLimit( "SELECT $select FROM $this->myTableName $where $order",
@@ -112,7 +115,7 @@ class TableModel extends TableSortModel
 		$sql= " $this->myTableName";
 		$where="";
 		if( isset($this->myLang) ) $where.=" $this->myLang='$LANG'";
-		
+
 		foreach( $this->myColumns as &$col )
 		{
 			if( !$col->myIsVisible && !isset($col->myIsProtected) ) 
@@ -130,7 +133,11 @@ class TableModel extends TableSortModel
 		if( $where!="" ) $sql.=" WHERE $where";
 		if( $this->myIsOffset )
 		{
-			$count=$this->myDB->GetOne( "SELECT count(*) FROM (SELECT $this->myId FROM $sql LIMIT $this->myMaxElementCount) c" );
+			if( $this->myMaxElementCount>0 )
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM (SELECT $this->myId FROM $sql LIMIT $this->myMaxElementCount) c" );
+			else
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM $sql" );
+
 			$offset=$this->getCurPage( $request,$count );
 		}
 		if( $this->myOrder!="" ) $sql.=" ORDER BY $this->myOrder";
@@ -195,7 +202,11 @@ class TableModel extends TableSortModel
 	public function deleteRow( &$request )
 	{
 		$id=$request[$this->myId];
-		if( isset($id) ) $this->myDB->Execute( "DELETE FROM $this->myTableName WHERE $this->myId='$id'" );
+		
+		$sql="DELETE FROM $this->myTableName WHERE $this->myId='$id'";
+		if( $this->myExtraWhere!="" ) $sql.=" AND ".$this->myExtraWhere;
+
+		if( isset($id) ) $this->myDB->Execute( $sql );
 	}
 	
 	protected function saveRowUpdate( $id, &$request )
@@ -218,6 +229,7 @@ class TableModel extends TableSortModel
 		}
 		$ret.=" WHERE $this->myId";
 		if( $id!="" ) $ret.="='$id'"; else $ret.=" IS NULL ";
+		if( $this->myExtraWhere!="" ) $ret.=" AND ".$this->myExtraWhere;
 		
 		$this->myDB->Execute( $ret );
 		foreach( $this->myColumns as $col ) $col->postUpdate( $id,$request );
@@ -230,7 +242,7 @@ class TableModel extends TableSortModel
 			$id=$this->myDB->GenID( $this->myTableName."_".$this->myId."_seq" );
 		}
 		
-		$ret="INSERT INTO $this->myTableName (";
+		$ret="INSERT IGNORE INTO $this->myTableName (";
 		if( isset($id) ) $ret.="$this->myId,";
 		$i=0;
 		foreach( $this->myColumns as $col )

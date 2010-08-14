@@ -139,7 +139,7 @@ function APC_GetRow( $params, &$db, $sql, $ttl=-1 )
 	$name=APC_constructName( $params );
 
 	$ret=$theAPC->fetch( $name );
-	if( !$ret || $ret="no data" ) 
+	if( !$ret || $ret=="no data" ) 
 	{
 		$ret=$db->GetRow( $sql );
 
@@ -149,3 +149,4 @@ function APC_GetRow( $params, &$db, $sql, $ttl=-1 )
 
 	return is_array($ret)?$ret:array();
 }
+

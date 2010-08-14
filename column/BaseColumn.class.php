@@ -69,11 +69,22 @@ class BaseColumn
 		//do nothing
 	}
 	
-	function getInput( )
+	function getInput( &$row )
 	{
 		//do nothing
 	}
-	
+
+	function getArrayedInput( &$row, $id )
+	{
+		$name=$this->myName;
+		$this->myName.="[$id]";
+		$row[$this->myName]=$row[$name];
+		$ret=$this->getInput( $row );
+		$this->myName=$name;
+
+		return $ret;
+	}
+
 	function postInsert( $id,&$data )
 	{
 	}

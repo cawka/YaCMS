@@ -113,6 +113,11 @@ class TableBaseModel extends BaseModel
 			return $test;
 	}
 
+	public function isMoreOffsets( )
+	{
+		return $this->myIsOffset && $this->myElementCount>$this->myElementsPerPage;
+	}
+
 	public function getPageOffsetCtrl( $suppress=true, $baseurl=NULL, $pagecount=NULL )
 	{
 		global $LANG,$langdata;
@@ -178,5 +183,10 @@ class TableBaseModel extends BaseModel
 	public function getTableHeader( )
 	{
 		return "";
+	}
+
+	public function isId( )
+	{
+		return true;
 	}
 }

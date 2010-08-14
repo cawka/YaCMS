@@ -20,7 +20,7 @@ class GroupTableOutputColumn extends GroupColumn
 			$ret.="<a href='javascript:;' onclick='trigger(\"$this->myName\")'><img id='button_$this->myName' src='/images/plus_9_px.gif' class='collapsed'/></a>";
 			$ret.="<div id='group_$this->myName' class='collapsed'>";
 		}
-		$ret.="<table class='boolgroup'><tr>";
+		$ret.="<table class='group'><tr>";
 		$slice_count=floor(sizeof( $this->myColumns )/$this->myColCount+$this->myColCount-1);
 		$width=round(100/$this->myColCount);
 
@@ -32,7 +32,7 @@ class GroupTableOutputColumn extends GroupColumn
 				if( $ret!="" ) $ret.="</tr>";
 				$ret.="<tr>";
 			}
-			$ret.="<td width='$width%'>".$col->myDescription."&nbsp;".$col->getInput( $row )."</td>";
+			$ret.="<td width='$width%' nowrap='true'>".$col->myDescription."&nbsp;".$col->getInput( $row )."</td>";
 			$i++;
 		}
 		$ret.="</tr></table>";

@@ -2,18 +2,20 @@
 
 class BooleanColumn extends BaseColumn 
 {
-	var $myDescrRH;
-	var $myBriefMsgRH;
+	public $myDescrRH;
+	public $myBriefMsgRH;
+	public $myClass;
 	
-	function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="" )
+	public function __construct( $name,$descr,$required=NULL,$brief=false,$brmsg="",$class="" )
 	{
 		$this->myDescrRH=$descr;
 		$this->myBriefMsgRH=$brmsg;
+		$this->myClass=$class;
 		
 		parent::__construct( $name,NULL,true,NULL,$brief,NULL );
 	}
 	
-	function getInsert( &$request )
+	public function getInsert( &$request )
 	{
 		if( !isset($request[$this->myName]) || $request[$this->myName]=="" )
 		{
@@ -31,7 +33,7 @@ class BooleanColumn extends BaseColumn
 		}
 	}
 
-	function getValue( &$row )
+	public function getValue( &$row )
 	{
 		if( isset($row[$this->myName]) && ($row[$this->myName]=='t' || $row[$this->myName]=='1') )
 			return "TRUE";
@@ -39,13 +41,16 @@ class BooleanColumn extends BaseColumn
 			return "FALSE";
 	}
 	
-	function getInput( &$row )
+	public function getInput( &$row )
 	{
-		return "<input type='checkbox' id='$this->myName' name='$this->myName' ".
-			   "value='t' ".($this->getValue($row)=='TRUE'?"checked":"")." />&nbsp;$this->myDescrRH";
+		$ret="<input type='checkbox' id='$this->myName' name='$this->myName' class='$this->myClass' ".
+			"value='t' ".($this->getValue($row)=='TRUE'?"checked":"")." />";
+		if( $this->myDescrRH!="" ) $ret.="&nbsp;$this->myDescrRH";
+
+		return $ret;
 	}
 
-	function extractValue( &$row )
+	public function extractValue( &$row )
 	{
 		if( $row[$this->myName]=='t' || $row[$this->myName]=='1')
 			return $this->myBriefMsgRH;
@@ -53,13 +58,13 @@ class BooleanColumn extends BaseColumn
 			return "";
 	}
 
-	function getXML( $row )
+	public function getXML( $row )
 	{
 		$ret="<!-- $this->myBriefMsgRH: t=>True f=>False -->\n";
 		return $ret.parent::getXML( $row );
 	}
 
-	function getSQLType( )
+	public function getSQLType( )
 	{
 		return "boolean";
 	}
