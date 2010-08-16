@@ -34,10 +34,20 @@ class TableSortModel extends TableBaseModel
 	{
 		if( isset($this->mySortColumns[$colname]) )
 		{
-			$ret="<a href='".$_SERVER['PHP_SELF']."?".getRequest(array("skip"=>"sort", "skip1"=>"desc","skip2"=>"ajax")).
-				"sort=".$colname;
-			if( $_REQUEST['sort']==$colname && !isset($_REQUEST['desc']) ) $ret.="&amp;desc";
-			$ret.="'>$title</a>";
+			$set="sort=$colname";
+			if( $_REQUEST['sort']=="$colname" && !isset($_REQUEST['desc']) ) $set.="&amp;desc";
+
+			$ret="<a href='".$this->myHelper->getRequest(array("_m","sort","desc","ajax"),$set)."'>";
+			$ret.="$title</a>";
+
+			if( $_REQUEST['sort']=="$colname" )
+			{
+				$ret.=' <img  border="0" width="10" height="10" src="/images/';
+				if( !isset($_REQUEST['desc']) )
+					$ret.="up.gif\" />";
+				else
+					$ret.="down.gif\" />";
+			}
 			return $ret;
 		}
 		else 
