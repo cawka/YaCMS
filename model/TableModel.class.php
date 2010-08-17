@@ -93,6 +93,20 @@ class TableModel extends TableSortModel
 					if( $ret!="" ) $ret.=" AND ";
 					$ret.=$colname["where"];
 					break;
+				case "bool_int_geq":
+					if( $request[$colname['bool']]=='t' && is_numeric($request[$colname['int']]) )
+					{
+						if( $ret!="" ) $ret.=" AND ";
+						$ret.="$colname[field]>=".$DB->qstr($request[$colname['int']]);
+					}
+					break;
+				case "bool_int_leq":
+					if( $request[$colname['bool']]=='t' && is_numeric($request[$colname['int']]) )
+					{
+						if( $ret!="" ) $ret.=" AND ";
+						$ret.="$colname[field]<=".$DB->qstr($request[$colname['int']]);
+					}
+					break;
 				default:
 					break;
 				}
@@ -159,7 +173,9 @@ class TableModel extends TableSortModel
 		}
 		$where.=$this->extraWhere( $request );
 		
-		if( $where!="" ) $sql.=" WHERE $where";
+		if( $where!="" ) $sql.=" WHERE $where ";
+		$sql.=" $this->myGroup ";
+
 		if( $this->myIsOffset )
 		{
 			if( $this->myMaxElementCount>0 )
