@@ -13,6 +13,8 @@ class TableModel extends TableSortModel
 	public $mySearchColumns;
 	
 	protected $myExtraWhere="";
+	protected $mySelect="*";
+	protected $myGroup="";
 
 	public function __construct( &$db,$php,
 						$tblname,$columns,$id="id",$offsets=false )
@@ -45,6 +47,8 @@ class TableModel extends TableSortModel
 
 	protected function extraWhere( &$request )
 	{
+		global $DB;
+
 		if( !isset($this->mySearchColumns) ) return $this->myExtraWhere;
 		$ret=$this->myExtraWhere;
 		foreach( $this->mySearchColumns as &$colname )
@@ -55,13 +59,38 @@ class TableModel extends TableSortModel
 				$col=&$colname["column"];
 			if( isset($request[$col->myName]) && $request[$col->myName]!="" )
 			{
-				if( $ret!="" ) $ret.=" AND ";
 				switch( $colname['type'] )
 				{
-				case "like":
-					$ret.="$col->myName like '%".$request[$col->myName]."%'";
+				case "equal":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field]=".$DB->qstr($request[$col->myName]);
+					break;
+				case "ge":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field]>".$DB->qstr($request[$col->myName]);
+					break;
+				case "geq":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field]>=".$DB->qstr($request[$col->myName]);
+					break;
+				case "le":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field]<".$DB->qstr($request[$col->myName]);
+					break;
+				case "leq":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field]<=".$DB->qstr($request[$col->myName]);
+					break;
+				case "like_prefix":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field] like ".$DB->qstr($request[$col->myName]."%");
+					break;
+				case "like_any":
+					if( $ret!="" ) $ret.=" AND ";
+					$ret.="$colname[field] like ".$DB->qstr("%".$request[$col->myName]."%");
 					break;
 				case "custom":
+					if( $ret!="" ) $ret.=" AND ";
 					$ret.=$colname["where"];
 					break;
 				default:
@@ -77,22 +106,22 @@ class TableModel extends TableSortModel
 		return array();
 	}
 	
-	protected function collectDataBaseRaw( &$request, $select, $where, $order )
+	protected function collectDataBaseRaw( &$request, $select, $where, $order, $group="" )
 	{
 		if( $this->myIsOffset )
 		{
 			if( $this->myMaxElementCount>0 )
-				$count=$this->myDB->GetOne( "SELECT count(*) FROM (select * FROM $this->myTableName $where LIMIT $this->myMaxElementCount) c" );
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM (select * FROM $this->myTableName $where $group LIMIT $this->myMaxElementCount) c" );
 			else
-				$count=$this->myDB->GetOne( "SELECT count(*) FROM $this->myTableName $where" );
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM $this->myTableName $where $group" );
 
 			$offset=$this->getCurPage( $request,$count );
 
-			$res=$this->myDB->SelectLimit( "SELECT $select FROM $this->myTableName $where $order",
+			$res=$this->myDB->SelectLimit( "SELECT $select FROM $this->myTableName $where $group $order",
 										   $this->myElementsPerPage,$offset*$this->myElementsPerPage );
 		}
 		else
-			$res=$this->myDB->Execute( "SELECT $select FROM $this->myTableName $where $order" );
+			$res=$this->myDB->Execute( "SELECT $select FROM $this->myTableName $where $group $order" );
 
 		return $res;
 	}
@@ -134,7 +163,7 @@ class TableModel extends TableSortModel
 		if( $this->myIsOffset )
 		{
 			if( $this->myMaxElementCount>0 )
-				$count=$this->myDB->GetOne( "SELECT count(*) FROM (SELECT $this->myId FROM $sql LIMIT $this->myMaxElementCount) c" );
+				$count=$this->myDB->GetOne( "SELECT count(*) FROM (SELECT $this->mySelect FROM $sql LIMIT $this->myMaxElementCount) c" );
 			else
 				$count=$this->myDB->GetOne( "SELECT count(*) FROM $sql" );
 
@@ -145,9 +174,9 @@ class TableModel extends TableSortModel
 		$extraSel=$this->extraSelect( $request );
 		if( sizeof($extraSel)!=0 ) $extraSel=",".implode(",",$extraSel); else $extraSel="";
 		if( $this->myIsOffset )
-			$res=$this->myDB->SelectLimit( "SELECT * $extraSel FROM $sql",$this->myElementsPerPage,$offset*$this->myElementsPerPage );
+			$res=$this->myDB->SelectLimit( "SELECT $this->mySelect $extraSel FROM $sql",$this->myElementsPerPage,$offset*$this->myElementsPerPage );
 		else 
-			$res=$this->myDB->Execute( "SELECT * $extraSel FROM $sql" );
+			$res=$this->myDB->Execute( "SELECT $this->mySelect $extraSel FROM $sql" );
 
 		return $res;
 	}

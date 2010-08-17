@@ -59,7 +59,7 @@ class TextColumn extends BaseColumn
 		$classes=array_merge( $classes, $this->myValidate );
 		
 		$ret="<input id='$this->myName' class=\"".implode(" ", $classes)."\" type='$this->htmlType' ".
-			 " name='$this->myName' value='".$this->getValue( $row )."' ";
+			 " name='$this->myName' value=\"".htmlentities($this->getValue( $row ))."\" ";
 
 		if( $this->myToolTip!="" ) $ret.=" title='$this->myToolTip' ";
 		if( $this->myLimit>0 ) $ret.=" MAXLENGTH='$this->myLimit' ";
