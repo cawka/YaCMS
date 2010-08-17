@@ -10,27 +10,7 @@ class TableSortModel extends TableBaseModel
 		
 	}
 
-	public function getSortHeaderLink( $colname )
-	{
-		if( isset($this->mySortColumns[$colname]) )
-		{
-			$set="sort=".$this->myColumns[$colname]->getSortName();
-			if( $_REQUEST['sort']==$this->myColumns[$colname]->getSortName() && !isset($_REQUEST['desc']) ) $set.="&amp;desc";
-
-			$ret="<a href='".$this->myHelper->getRequest( array("sort","desc"), $set )."'>";
-
-			if( $this->myColumns[$colname]->myBriefMsg!="" )
-				$ret.=$this->myColumns[$colname]->myBriefMsg;
-			else
-				$ret.=$this->myColumns[$colname]->myDescription;
-			$ret.="</a>";
-			return $ret;
-		}
-		else
-			return ($this->myColumns[$colname]->myBriefMsg!="")?$this->myColumns[$colname]->myBriefMsg:$this->myColumns[$colname]->myDescription;
-	}
-
-	public function getSortHeaderLinkNewStyle( $colname,$title )
+	public function getSort( $colname,$title )
 	{
 		if( isset($this->mySortColumns[$colname]) )
 		{
@@ -59,7 +39,6 @@ class TableSortModel extends TableBaseModel
 	{
 		global $langdata;
 	
-//		return "pp".sizeof( $this->mySortColumns);
 		if( sizeof($this->mySortColumns)==0 ) return "";
 		$ret.="<span class=\"sortingblock\">".$langdata["sort_by"]; 
 		$ret.=" <select class=\"sortingselect\" onchange=\"document.location.href='".$_SERVER['PHP_SELF']."?".getRequest(array("skip"=>"sort"))."sort='+this.options[this.selectedIndex].value\">\n";
