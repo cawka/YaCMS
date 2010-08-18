@@ -45,73 +45,100 @@ class TableModel extends TableSortModel
 		$this->mySortColumns=array_merge( $this->mySortColumns, $sort );
  	}
 
+	protected function formatWhere( &$request, &$col, &$colname )
+	{
+		global $DB;
+
+		$ret="";
+
+		if( isset($request[$col->myName]) && $request[$col->myName]!="" )
+		{
+			switch( $colname['type'] )
+			{
+			case "equal":
+				$ret.="$colname[field]=".$DB->qstr($request[$col->myName]);
+				break;
+			case "ge":
+				$ret.="$colname[field]>".$DB->qstr($request[$col->myName]);
+				break;
+			case "geq":
+				$ret.="$colname[field]>=".$DB->qstr($request[$col->myName]);
+				break;
+			case "le":
+				$ret.="$colname[field]<".$DB->qstr($request[$col->myName]);
+				break;
+			case "leq":
+				$ret.="$colname[field]<=".$DB->qstr($request[$col->myName]);
+				break;
+			case "like_prefix":
+				$ret.="$colname[field] like ".$DB->qstr($request[$col->myName]."%");
+				break;
+			case "like_any":
+				$ret.="$colname[field] like ".$DB->qstr("%".$request[$col->myName]."%");
+				break;
+			case "custom":
+				$ret.=$colname["where"];
+				break;
+			case "bool_int_geq":
+				if( $request[$colname['bool']]=='t' && is_numeric($request[$colname['int']]) )
+				{
+					$ret.="$colname[field]>=".$DB->qstr($request[$colname['int']]);
+				}
+				break;
+			case "bool_int_leq":
+				if( $request[$colname['bool']]=='t' && is_numeric($request[$colname['int']]) )
+				{
+					$ret.="$colname[field]<=".$DB->qstr($request[$colname['int']]);
+				}
+				break;
+			case "bool_list":
+				$fields=$colname['fields'];
+				if( isset($fields[$request[$col->myName]]) )
+				{
+					$ret.=$fields[$request[$col->myName]]."=1";
+				}
+				break;
+			}
+		}
+		return $ret;
+	}
+
+	protected function processSearch( &$request, &$group )
+	{
+		$ret="";
+
+		foreach( $group as &$item )
+		{
+			if( is_array($item['group']) )
+			{
+				$x=$this->processSearch( $request, $item['group'] );
+				if( $x!="" && $ret!="" ) $ret.=" AND ";
+				$ret.=$x;
+			}
+			else
+			{
+				$col=$item['column'];
+
+				$x=$this->formatWhere( $request, $col, $item );
+				if( $x!="" && $ret!="" ) $ret.=" AND ";
+				$ret.=$x;
+			}
+		}
+
+		return $ret;
+	}
+
 	protected function extraWhere( &$request )
 	{
 		global $DB;
 
 		if( !isset($this->mySearchColumns) ) return $this->myExtraWhere;
 		$ret=$this->myExtraWhere;
-		foreach( $this->mySearchColumns as &$colname )
-		{
-			if( isset($colname["name"]) )
-				$col=&$this->myColumns[$colname["name"]];
-			else
-				$col=&$colname["column"];
-			if( isset($request[$col->myName]) && $request[$col->myName]!="" )
-			{
-				switch( $colname['type'] )
-				{
-				case "equal":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field]=".$DB->qstr($request[$col->myName]);
-					break;
-				case "ge":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field]>".$DB->qstr($request[$col->myName]);
-					break;
-				case "geq":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field]>=".$DB->qstr($request[$col->myName]);
-					break;
-				case "le":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field]<".$DB->qstr($request[$col->myName]);
-					break;
-				case "leq":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field]<=".$DB->qstr($request[$col->myName]);
-					break;
-				case "like_prefix":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field] like ".$DB->qstr($request[$col->myName]."%");
-					break;
-				case "like_any":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.="$colname[field] like ".$DB->qstr("%".$request[$col->myName]."%");
-					break;
-				case "custom":
-					if( $ret!="" ) $ret.=" AND ";
-					$ret.=$colname["where"];
-					break;
-				case "bool_int_geq":
-					if( $request[$colname['bool']]=='t' && is_numeric($request[$colname['int']]) )
-					{
-						if( $ret!="" ) $ret.=" AND ";
-						$ret.="$colname[field]>=".$DB->qstr($request[$colname['int']]);
-					}
-					break;
-				case "bool_int_leq":
-					if( $request[$colname['bool']]=='t' && is_numeric($request[$colname['int']]) )
-					{
-						if( $ret!="" ) $ret.=" AND ";
-						$ret.="$colname[field]<=".$DB->qstr($request[$colname['int']]);
-					}
-					break;
-				default:
-					break;
-				}
-			}
-		}
+
+		$x=$this->processSearch( $request, $this->mySearchColumns );
+		if( $x!="" && $ret!="" ) $ret.=" AND ";
+		$ret.=$x;
+
 		return $ret;
 	}
 
