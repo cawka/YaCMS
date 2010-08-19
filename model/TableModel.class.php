@@ -198,7 +198,9 @@ class TableModel extends TableSortModel
 					$where.="=".$col->getInsert( $request );
 			}
 		}
-		$where.=$this->extraWhere( $request );
+		$where2=$this->extraWhere( $request );
+		if( $where!="" && $where2!="" ) $where.=" AND ";
+		$where.=$where2;
 		
 		if( $where!="" ) $sql.=" WHERE $where ";
 		$sql.=" $this->myGroup ";

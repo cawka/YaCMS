@@ -64,7 +64,7 @@ class BaseTableHelper extends BaseHelper
 	{
 		global $PREFIX;
 
-		return "<img style='margin:0;padding:0;display:inline' height='12px' src='$PREFX"."images/admin/$button.gif' alt='$name' title='$name' class='tooltip' />";
+		return "<img style='margin:0;padding:0;display:inline' height='12px' src='$PREFIX"."images/admin/$button.gif' alt='$name' title='$name' class='tooltip' />";
 	}
 }
 

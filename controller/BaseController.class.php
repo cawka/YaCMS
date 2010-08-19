@@ -50,12 +50,11 @@ class BaseController
 			$template="common/error.tpl";
 		}
 		
+		$tmpl->assign( "this", $this->myModel );
 		if( !$tmpl->isCached($template,$this->myCacheId) )
 		{
 			if( $model_method!="" ) call_user_func( array($this->myModel,$model_method), $request );
 			$tmpl->assign( "this", $this->myModel );
-
-			if( isset($request['error']) ) $tmpl->assign( "error", $request['error'] );
 		}
 
 		if( !$this->myUseSmartyFetch )
@@ -78,6 +77,8 @@ class BaseController
 			$template="common/error.tpl";
 		}
 		
+		$tmpl->assign( "this", $this->myModel );
+
 		if( !$tmpl->isCached($template, $this->myCacheId) )
 		{
 			if( $model_method!="" ) call_user_func( array($this->myModel,$model_method), $request );
@@ -91,10 +92,8 @@ class BaseController
 			///////////////////////////////////////////////
 			
 			$tmpl->assign( "this", $this->myModel );
-			
-			if( isset($request['error']) ) $tmpl->assign( "error", $request['error'] );
 		}
-		
+
 		if( !$this->myUseSmartyFetch )
 			$tmpl->display( $template, $this->myCacheId );
 		else 
