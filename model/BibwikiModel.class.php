@@ -4,26 +4,29 @@ class BibwikiModel extends TableModel
 {
 	protected $myFields;
 
-	public function __construct( $php )
+	public function __construct( $php, $type=NULL )
 	{
 		global $DB;
 //		$DB->debug=true;
 //		print_r( $_SERVER );
+		if( isset($_REQUEST['biblio_type']) ) $type=$_REQUEST['biblio_type'];
+		$this->myParentId="TB_ajaxContent";
+
 		parent::__construct( $DB,$php,"bibwiki",array(
-			"biblio_type1"=>new HiddenColumn("biblio_type", NULL ),
-			"biblio_type"=>new ListColumn("biblio_type","Section","required", array(
-				"books"=>"Books",
-				"book_chapters"=>"Chapters",
-				"articles"=>"Articles",
-				"service_reports"=>"Public Service Reports",
-				"patents"=>"Patents",
-				"public_reports"=>"Public Reports",
-				"techreports"=>"Technical Reports",
-				"presentations"=>"Presentations",
-				"press_releases"=>"Press Releases",
-				"white_papers"=>"White Papers",
-				"tutorials"=>"Tutorials",
-			) ),
+			"biblio_type"=>new HiddenColumn("biblio_type", $type ),
+//			"biblio_type"=>new ListColumn("biblio_type","Section","required", array(
+//				"books"=>"Books",
+//				"book_chapters"=>"Chapters",
+//				"articles"=>"Articles",
+//				"service_reports"=>"Public Service Reports",
+//				"patents"=>"Patents",
+//				"public_reports"=>"Public Reports",
+//				"techreports"=>"Technical Reports",
+//				"presentations"=>"Presentations",
+//				"press_releases"=>"Press Releases",
+//				"white_papers"=>"White Papers",
+//				"tutorials"=>"Tutorials",
+//			) ),
 			"bibtex"=>new BibtexTypeColumn( "bibtex", "Publication type" ),
 			"pdf"=>new FileColumn( "pdf", "PDF" ),
 			"slides"=>new FileColumn( "slides", "Slides in PDF or PPT format" ),
@@ -51,7 +54,7 @@ class BibwikiModel extends TableModel
 //		$req=array( "id"=>"bibwiki-$request[biblio_type]" );
 //		$this->myStatic->getRowToShow( $req );
 
-		$this->myColumns["biblio_type1"]->myValue=$request['biblio_type'];
+//		$this->myColumns["biblio_type1"]->myValue=$request['biblio_type'];
 		parent::collectData( $request );
 	}
 
@@ -292,7 +295,7 @@ class BibwikiModel extends TableModel
 //		$this->myDB->debug=true;
 		$this->preprocessData( $request );
 
-		StaticPagesHelper::updateLastModifiedStatic( "bibwiki-".$request['biblio_type'] );
+//		StaticPagesHelper::updateLastModifiedStatic( "bibwiki-".$request['biblio_type'] );
 		return parent::save_add( $request );
 	}
 	
@@ -300,7 +303,7 @@ class BibwikiModel extends TableModel
 	{
 		$this->preprocessData( $request );
 
-		StaticPagesHelper::updateLastModifiedStatic( "bibwiki-".$request['biblio_type'] );
+//		StaticPagesHelper::updateLastModifiedStatic( "bibwiki-".$request['biblio_type'] );
 		return parent::save_edit( $request );
 	}
 
@@ -412,6 +415,12 @@ class BibwikiModel extends TableModel
 	public function getQuery( )
 	{
 		return "";
+	}
+
+	public function createSQL( )
+	{
+//		unset( $this->myColumns['biblio_type1'] );
+		return parent::createSQL( );
 	}
 }
 

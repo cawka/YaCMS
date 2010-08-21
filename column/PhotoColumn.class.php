@@ -19,7 +19,9 @@ class PhotoColumn extends BaseColumn
 		<script type='text/javascript'>
 			function set_$this->myName(val){ updateImage('$this->myName',val); };
 		</script>
-        <input type=\"button\" class=\"button\" onClick=\"BrowserPopup('$this->myName');\" value=\"Browse...\">\n";
+        <input type=\"button\" class=\"button\" onClick=\"BrowserPopup('$this->myName');\" value=\"Browse...\" />\n";
+		$ret.="<script type='text/javascript'>syncImgValues.periodical(1000,[],[$('$this->myName"."_pic'),$('$this->myName')]);</script>";
+
 		return $ret;
 
 	}

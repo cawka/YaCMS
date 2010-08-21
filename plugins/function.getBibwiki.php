@@ -6,13 +6,13 @@ function smarty_function_getBibwiki( $params,&$smarty )
 
 	$controller=
 	new BibwikiController(
-		new BibwikiModel("bibwiki"),
+		new BibwikiModel("bibwiki", $params['biblio_type']),
 		new BibwikiHelper()
 	);
 	$controller->myUseSmartyFetch=true;
 
-//	$smarty->assign( "biblio_type", $params['type'] );
 	$smarty->caching=false;
+	$_REQUEST['biblio_type']=$params['biblio_type'];
 	return $controller->index( $smarty, $params ); 
 }
 
