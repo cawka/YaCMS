@@ -21,7 +21,7 @@ class APCHelper
 		
 		if( $this->myIsEnabled )
 		{
-			$this->myMemCache=&new Memcache( );
+			$this->myMemCache=new Memcache( );
 			foreach( $CACHE_SERVERS as $server )
 			{
 				$this->myMemCache->addServer( $server['host'], $server['port'], true, $server['weight'] );
