@@ -15,7 +15,7 @@ class RequestAction
 	function RequestAction( $controller,&$class, $nodelay=true )
 	{
 		global $DB,$LANG,$Auth;
-		$this->myTemplate=&new MySmarty( );
+		$this->myTemplate=new MySmarty( );
 		
 		$Auth=new AuthHelper( $controller );
 		$this->myAuth=&$Auth;
