@@ -45,7 +45,7 @@ class TableController extends BaseController
 	{
 		if( isset($request['inner']) ) $tmpl->assign( "withouthead", "true" );
 
-		return $this->showTemplate( $tmpl, $request, $this->myTemplateForm, "" );
+		return $this->showTemplate( $tmpl, $request, $this->myTemplateForm, "getRowFromRequest" );
 	}
 	
 	public function delete( &$tmpl,&$request )
