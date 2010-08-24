@@ -234,7 +234,12 @@ class TableModel extends TableSortModel
 	
 	public function collectDataFetch( &$request )
 	{
-		$this->myData=&$this->collectDataBase( $request );
+		$this->myData=$this->collectDataBase( $request );
+	}
+
+	public function getRowFromRequest( &$request )
+	{
+		$this->myData=$request;
 	}
 	
 	public function getRowToEdit( &$request )
