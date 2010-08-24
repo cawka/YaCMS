@@ -1,7 +1,6 @@
 <?php
 
 require_once( "lib/searchkeys.class.php" );
-require_once( "lib/Mail.class.php" );
 
 class SearchKeywordEmailerHelper extends search_keywords
 {
@@ -49,7 +48,7 @@ He or she used keywords: <a href=\"$_SERVER[HTTP_REFERER]\"><strong>$keys[1]</st
 Sincerely,<br/>
 Your Home Page Robot";
 
-				Mail::sendToUserFromRobot( $SETTINGS['user.name'], $SETTINGS['user.email'],
+				MailHelper::sendToUserFromRobot( $SETTINGS['user.name'], $SETTINGS['user.email'],
 						"Someone just searched for you on $keys[2]",
 						$html,
 						$text );
