@@ -1,32 +1,44 @@
 <?php
 
-require_once "Net/GeoIP.php";
+//require_once "Net/GeoIP.php";
 
 class GeoHelper
 {
-	private $_geo;
+//	private $_geo;
+//
+//	public function __construct( )
+//	{
+//		$this->_geo = Net_GeoIP::getInstance( CMSDIR. "/lib/geo/GeoLiteCity.dat" );
+//	}
+//
+//	public function locate( $ip )
+//	{
+//		try
+//		{
+//			$loc=$this->_geo->lookupLocation( $ip );
+//			$x=array();
+//			if( $loc->city!="" ) $x[]=$loc->city;
+//			if( $loc->countryName!="" ) $x[]=$loc->countryName;
+//
+//			return implode( ", ", $x );
+//		}
+//		catch( Exception $e )
+//		{
+//			return "";
+//		}
+//	}
 
-	public function __construct( )
+	static $_geoCodes;
+
+	public static function codeToName( $code )
 	{
-		$this->_geo = Net_GeoIP::getInstance( CMSDIR. "/lib/geo/GeoLiteCity.dat" );
-	}
-
-	public function locate( $ip )
-	{
-		try
+		global $DB;
+		if( !isset($_codes) )
 		{
-			$loc=$this->_geo->lookupLocation( $ip );
-			$x=array();
-			if( $loc->city!="" ) $x[]=$loc->city;
-			if( $loc->countryName!="" ) $x[]=$loc->countryName;
+			$_geoCodes=APC_GetAssoc( array("geoCodes"), $DB, "SELECT ISO2,NAME FROM countries", 0 );
+		}
 
-			return implode( ", ", $x );
-		}
-		catch( Exception $e )
-		{
-			return "";
-		}
+		return $_geoCodes[$code];
 	}
-
 }
 
