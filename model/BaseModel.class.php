@@ -66,19 +66,21 @@ class BaseModel
 		return "";
 	}
 	
-	protected function getColumnParams( $params=array() )
+	protected function getColumnParams( &$row, $params=array() )
 	{
 		foreach( $this->myColumns as $col )
 		{
 			if( !$col->myIsVisible && !isset($col->myIsProtected) ) 
-				$params[$col->myName]=$col->getValue( $this->myData );
+			{
+				$params[$col->myName]=$col->getValue( $row );
+			}
 		}
 		return $params;
 	}
 	
 	public function getFormCtrl( &$row,$action,$validate,&$options )
 	{	
-		return $this->myHelper->form_action( $this,$action,$validate,$this->getColumnParams(),$options );
+		return $this->myHelper->form_action( $this,$action,$validate,$this->getColumnParams($row),$options );
 	}
 	
 	function extractParentId( &$row )

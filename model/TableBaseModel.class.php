@@ -56,7 +56,7 @@ class TableBaseModel extends BaseModel
 		return $this->myHelper->link_popup( $this,"add",
 											$name,
 											"Add",
-											$this->getColumnParams( ) );
+											$this->getColumnParams($_REQUEST) );
 	}
 
 	public function getEditCtrl( &$row, $name=NULL )
@@ -69,7 +69,7 @@ class TableBaseModel extends BaseModel
 						$this,"edit",
 						$name,
 						"Edit",
-						$this->getColumnParams( array($this->myId=>$row[$this->myId]) ) );
+						$this->getColumnParams( $row, array($this->myId=>$row[$this->myId]) ) );
 	}
 
 	public function getDeleteCtrl( &$row )
@@ -79,7 +79,7 @@ class TableBaseModel extends BaseModel
 		return $this->myHelper->link_popup_confirm(
 						$this,"delete",
 						$this->myHelper->img_button("delete","Delete"),
-						$this->getColumnParams( array($this->myId=>$row[$this->myId]) ),
+						$this->getColumnParams( $row, array($this->myId=>$row[$this->myId]) ),
 						"Are you sure?" );
 	}
 

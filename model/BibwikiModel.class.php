@@ -9,7 +9,7 @@ class BibwikiModel extends TableModel
 		global $DB;
 //		$DB->debug=true;
 //		print_r( $_SERVER );
-		if( isset($_REQUEST['biblio_type']) ) $type=$_REQUEST['biblio_type'];
+		if( !isset($type) && isset($_REQUEST['biblio_type']) ) $type=$_REQUEST['biblio_type'];
 		$this->myParentId="TB_ajaxContent";
 
 		parent::__construct( $DB,$php,"bibwiki",array(
