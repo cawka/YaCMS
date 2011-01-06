@@ -1,7 +1,10 @@
 <?php
 
-require_once( resolveUrl("/") . "../_config.php" );
+include_once( dirname(__FILE__) . "/../../../_config.php" );
+#require_once( resolveUrl("/") . "../_config.php" );
+
 new PermissionsHelper( );
+
 
 /*
  * ### CKFinder : Configuration File - Basic Instructions
@@ -72,10 +75,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
  */
-
-$baseDir = resolveUrl($baseUrl);
-
-
+$baseDir = resolveUrl( $baseUrl );
 /*
  * ### Advanced Settings
  */
