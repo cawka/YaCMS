@@ -321,7 +321,7 @@ class TableModel extends TableSortModel
 			$id=$this->myDB->GenID( $this->myTableName."_".$this->myId."_seq" );
 		}
 		
-		$ret="INSERT IGNORE INTO $this->myTableName (";
+		$ret="INSERT INTO $this->myTableName (";
 		if( isset($id) ) $ret.="$this->myId,";
 		$i=0;
 		foreach( $this->myColumns as $col )
