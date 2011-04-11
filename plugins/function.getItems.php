@@ -11,8 +11,14 @@ function smarty_function_getItems( $params,&$smarty )
 	);
 	$controller->myUseSmartyFetch=true;
 
+	$request = array( "type" => $params['type'] );
+	if( isset($params['sorting']) )
+	{
+		$request['sort']='msort';
+	}
+
 	$smarty->assign( "type", $params['type'] );
 	$smarty->caching=false;
-	return $controller->index( $smarty, $params ); 
+	return $controller->index( $smarty, $request ); 
 }
 

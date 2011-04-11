@@ -16,15 +16,16 @@ class ItemsModel extends TableModel
 			new TextColumn("link","Link (if available)"),
 			new PhotoColumn("image","Image (if available)",NULL,0,0),
 			new TextColumn("years","Years"),
+			new IntegerColumn("msort","Manual Sort"),
 			) );
 		$this->myOrder="years DESC";
 
 		$this->RefreshByReload=true;
 //		$this->myElementsPerPage=30;
 		
-//		$this->mySortColumns=array( 
-//			"login"=>array("asc"=>"u_login","desc"=>"u_login DESC"),
-//		);
+		$this->mySortColumns=array( 
+			"msort"=>array("asc"=>"msort","desc"=>"msort DESC"),
+		);
 		
 //		$this->mySearchColumns=array(
 //			array( "column"=>new TextColumn("u_login","Логин содержит"),"type"=>"like" ),
