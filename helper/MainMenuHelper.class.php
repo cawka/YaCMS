@@ -40,7 +40,7 @@ class MainMenuHelper
 		global $DB, $PREFIX;
 
 		$menu=APC_GetRows( array("menu",$parent_id), $DB,
-			"SELECT * FROM menu WHERE parent_id".
+			"SELECT * FROM menu WHERE (display_order IS NULL OR display_order>=0) AND parent_id".
 			(!isset($parent_id)?" IS NULL":"=".$DB->qstr($parent_id)).
 			" ORDER BY display_order",
 			0 );
