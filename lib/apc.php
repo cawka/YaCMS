@@ -24,7 +24,7 @@
 
 $VERSION='$Id$';
 
-require_once( "../../_config.php" );
+require_once( "../../.init.php" );
 new PermissionsHelper();
 
 allowAccessOnlyToAdmin( );
