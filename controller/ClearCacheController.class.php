@@ -23,7 +23,7 @@ class ClearCacheController extends BaseController
 	function clearCacheSmarty( &$tmpl, &$request )
 	{
 		global $theAPC;
-		$tmpl->cache->clearAll( );
+		$tmpl->clearAllCache( );
 		
 		return $this->index( $tmpl,$request );
 	}

@@ -11,13 +11,13 @@ class TextsController extends TableController
 
 	public function postSave( &$tmpl, &$request )
 	{
-		$tmpl->cache->clearAll( );
+		$tmpl->clearAllCache( );
 		return parent::postSave( $tmpl, $request );
 	}
 
 	public function postDelete( &$tmpl, &$request )
 	{
-		$tmpl->cache->clearAll( );
+		$tmpl->clearAllCache( );
 		return parent::postDelete( $tmpl, $request );
 	}
 }
