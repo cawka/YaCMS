@@ -38,7 +38,7 @@ class BaseTableThickBoxHelper extends BaseTableHelper
 		$ret="";
 		$url="$PREFIX$model->myPhp/$action";
 		$query=http_build_query( $params,'', '&amp;' );
-		
+
 		$ret.="<a href=\"javascript:;\" onclick=\"if( confirm('$confirm_text') ) del('$url','$query','$model->myParentId')\" >$name</a>";
 		return $ret;
 	}

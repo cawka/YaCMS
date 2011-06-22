@@ -1,6 +1,6 @@
 <?php
 
-include_once( dirname(__FILE__) . "/../../../_config.php" );
+include_once( dirname(__FILE__) . "/../../../config.php" );
 #require_once( resolveUrl("/") . "../_config.php" );
 
 new PermissionsHelper( );
@@ -57,7 +57,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = $PREFIX.'data/';
+$baseUrl = $GLOBAL_PREFIX.'data/';
 /*
 $baseDir : the path to the local directory (in the server) which points to the
 above $baseUrl URL. This is the path used by CKFinder to handle the files in

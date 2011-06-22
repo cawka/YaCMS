@@ -19,6 +19,8 @@ class RequestAction
 		
 		$Auth=new AuthHelper( $controller );
 		$this->myAuth=&$Auth;
+		$class->myAuth=&$Auth;
+		$class->myModel->myAuth=&$Auth;
 		
 		$this->myTemplate->assign( "Auth", $this->myAuth );
 

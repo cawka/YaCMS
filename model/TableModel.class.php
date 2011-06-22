@@ -30,7 +30,7 @@ class TableModel extends TableSortModel
 	public function isId( )
 	{
 		if( is_array($this->myData) )
-			return isset( $this->myData[$this->myId] );
+			return isset( $this->myData[$this->myId] ) && !isset($this->myData['new_item']);
 		else
 			return false;
 	}
@@ -240,6 +240,7 @@ class TableModel extends TableSortModel
 	public function getRowFromRequest( &$request )
 	{
 		$this->myData=$request;
+		$this->myData['new_item']=true;
 	}
 	
 	public function getRowToEdit( &$request )
@@ -321,7 +322,7 @@ class TableModel extends TableSortModel
 			$id=$this->myDB->GenID( $this->myTableName."_".$this->myId."_seq" );
 		}
 		
-		$ret="INSERT INTO $this->myTableName (";
+		$ret="INSERT IGNORE INTO $this->myTableName (";
 		if( isset($id) ) $ret.="$this->myId,";
 		$i=0;
 		foreach( $this->myColumns as $col )

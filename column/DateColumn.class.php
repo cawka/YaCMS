@@ -34,7 +34,7 @@ class DateColumn extends BaseColumn
 		$ret.="' title='$this->myRequired' ".
 			 " name=\"$this->myName\" id=\"$this->myName\" value='$value' />";
 		$ret.="<script type='text/javascript'>
-			new Calendar( { $this->myName: 'Y-m-d' }, { offset: 1, navigation: 1, direction: -1 } );
+			new Calendar( { $this->myName: 'Y-m-d' }, { offset: 1, navigation: 1, direction: 0 } );
 		</script>";
 
 		return $ret;

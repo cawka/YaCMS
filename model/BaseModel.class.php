@@ -102,7 +102,7 @@ class BaseModel
 //		$ret2=http_build_query( $this->getColumnParams(),NULL,"&" );
 //		if( $ret!="" && $ret2!="" ) $ret.="&";
 //		return $ret.$ret2;
-		return http_build_query( $this->getColumnParams(),NULL,"&" );
+		return http_build_query( $this->getColumnParams($_REQUEST),NULL,"&" );
 	}
 
 	public function isId( )
