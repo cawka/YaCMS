@@ -33,8 +33,8 @@ class MyBaseSmarty extends Smarty
 		$this->assign( "SETTINGS", $SETTINGS );
 		$this->assign( "PREFIX",   $PREFIX );
 
-		$this->register->templateFunction( "isAdmin", "isAdmin" );
-		$this->register->templateFunction( "isUserLogged", "isUserLogged" );
+// 		$this->register->templateFunction( "isAdmin", "isAdmin" );
+// 		$this->register->templateFunction( "isUserLogged", "isUserLogged" );
 		
 		if( isUserLogged() )
 		{

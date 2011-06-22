@@ -60,35 +60,42 @@ class Smarty_Internal_Utility {
         $_error_count = 0; 
         // loop over array of template directories
         foreach((array)$this->smarty->template_dir as $_dir) {
+            if (strpos('/\\', substr($_dir, -1)) === false) {
+                $_dir .= DS;
+            } 
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
-                if (strpos($_fileinfo, '.svn') !== false) continue;
+                if (substr($_fileinfo->getBasename(),0,1) == '.') continue;
                 $_file = $_fileinfo->getFilename();
                 if (!substr_compare($_file, $extention, - strlen($extention)) == 0) continue;
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
-                    $_template_file = $_file;
+                   $_template_file = $_file;
                 } else {
-                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
-                } 
+                   $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                }
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
-                $_start_time = $this->_get_time();
+                $_start_time = microtime(true);
                 try {
-                    $_tpl = $this->smarty->createTemplate($_template_file);
+                    $_tpl = $this->smarty->createTemplate($_template_file,null,null,null,false);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
-                        echo ' compiled in  ', $this->_get_time() - $_start_time, ' seconds';
+                        echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
                     } else {
                         echo ' is up to date';
                         flush();
-                    } 
-                } 
+                    }
+                }
                 catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
                     $_error_count++;
                 } 
+				// free memory
+                $this->smarty->template_objects = array();
+                $_tpl->smarty->template_objects = array();
+                $_tpl = null;
                 if ($max_errors !== null && $_error_count == $max_errors) {
                     echo '<br><br>too many errors';
                     exit();
@@ -118,10 +125,13 @@ class Smarty_Internal_Utility {
         $_error_count = 0; 
         // loop over array of template directories
         foreach((array)$this->smarty->config_dir as $_dir) {
+            if (strpos('/\\', substr($_dir, -1)) === false) {
+                $_dir .= DS;
+            } 
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
-                if (strpos($_fileinfo, '.svn') !== false) continue;
+            if (substr($_fileinfo->getBasename(),0,1) == '.') continue;
                 $_file = $_fileinfo->getFilename();
                 if (!substr_compare($_file, $extention, - strlen($extention)) == 0) continue;
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
@@ -131,12 +141,12 @@ class Smarty_Internal_Utility {
                 } 
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
-                $_start_time = $this->_get_time();
+                $_start_time = microtime(true);
                 try {
                     $_config = new Smarty_Internal_Config($_config_file, $this->smarty);
                     if ($_config->mustCompile()) {
                         $_config->compileConfigSource();
-                        echo ' compiled in  ', $this->_get_time() - $_start_time, ' seconds';
+                        echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
                     } else {
                         echo ' is up to date';
@@ -185,7 +195,7 @@ class Smarty_Internal_Utility {
         $_compileDirs = new RecursiveDirectoryIterator($_dir);
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (strpos($_file, '.svn') !== false) continue;
+            if (substr($_file->getBasename(),0,1) == '.') continue;
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
@@ -208,6 +218,19 @@ class Smarty_Internal_Utility {
         return $_count;
     } 
 
+    /**
+     * Return array of tag/attributes of all tags used by an template
+     * 
+     * @param object $templae template object
+     * @return array of tag/attributes
+     */
+	function getTags(Smarty_Internal_Template $template) 
+	{
+		$template->smarty->get_used_tags = true;
+		$template->compileTemplateSource();
+		return $template->compiler_object->used_tags;
+	}	
+	
     function testInstall()
     {
         echo "<PRE>\n";
@@ -273,15 +296,5 @@ class Smarty_Internal_Utility {
 
         return true;
     } 
-    /**
-     * Get Micro Time
-     * 
-     * @return double micro time
-     */
-    function _get_time()
-    {
-        $_mtime = microtime();
-        $_mtime = explode(" ", $_mtime);
-        return (double)($_mtime[1]) + (double)($_mtime[0]);
-    } 
 }
+?>
