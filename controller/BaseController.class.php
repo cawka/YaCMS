@@ -30,7 +30,8 @@ class BaseController
 
 	protected function enableCache( &$tmpl, &$request )
 	{
-		if( !isAdmin() && $this->myCachingEnabled ) //enable cache if controller is configured to
+		//enable cache if controller is configured to
+		if( $this->myCachingEnabled && !$this->myAuth->isAllowed('nocache') ) 
 		{
 			$this->myCacheId=$this->myModel->myPhp."|".$this->myAction."|".$this->myCacheId;
 			

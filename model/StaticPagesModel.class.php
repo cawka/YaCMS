@@ -16,9 +16,11 @@ class StaticPagesModel extends StaticPagesBaseModel
 //			$this->myDB->debug=true;
 			$this->mainContent=new TextsModel( "texts", $request['id'], 0 );
 			$this->mainContent->myHelper=$this->myHelper;
+			$this->mainContent->myAuth=new AuthHelper( "texts" );
 
 			$this->menuContent=new TextsModel( "texts", $request['id'], 1 );
 			$this->menuContent->myHelper=$this->myHelper;
+			$this->menuContent->myAuth=$this->mainContent->myAuth;
 
 			$empty_array=array( );
 			$this->mainContent->getRowToShow( $empty_array );

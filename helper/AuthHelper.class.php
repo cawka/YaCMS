@@ -10,15 +10,12 @@ class AuthHelper
 	{
 		$this->myController=$controller;
 
-		if( $_SESSION['group']=="0" ) return;
-
 		$this->myRights=$this->getRights( $_SESSION['group'] );
 		if( !is_array($this->myRights) ) $this->myRights=array();
 		
 		if( isset($_SESSION['group']) )
 		{ //all public rights also granted to logged users
-			$this->myRights=array_merge( $this->myRights,
-				$this->getRights(NULL) );
+			$this->myRights=array_merge( $this->getRights(NULL), $this->myRights );
 		}
 	}
 

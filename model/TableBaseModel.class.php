@@ -49,7 +49,7 @@ class TableBaseModel extends BaseModel
 
 	public function getAddCtrl( $name=NULL )
 	{
-		global $Auth; if( !$Auth->isAllowed("add") ) return "";
+		if( !$this->myAuth->isAllowed("add") ) return "";
 
 		if( !isset($name) ) $name=$this->myHelper->img_button("new","Add");
 
@@ -61,7 +61,7 @@ class TableBaseModel extends BaseModel
 
 	public function getEditCtrl( &$row, $name=NULL )
 	{
-		global $Auth; if( !$Auth->isAllowed("edit") ) return "";
+		if( !$this->myAuth->isAllowed("edit") ) return "";
 
 		if( !isset($name) ) $name=$this->myHelper->img_button("edit","Edit");
 
@@ -74,7 +74,7 @@ class TableBaseModel extends BaseModel
 
 	public function getDeleteCtrl( &$row )
 	{
-		global $Auth; if( !$Auth->isAllowed("delete") ) return "";
+		if( !$this->myAuth->isAllowed("delete") ) return "";
 
 		return $this->myHelper->link_popup_confirm(
 						$this,"delete",
