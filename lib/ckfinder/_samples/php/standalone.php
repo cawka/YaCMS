@@ -3,7 +3,7 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2011, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -51,7 +51,7 @@ function ShowFileInfo( fileUrl, data )
 	<hr />
 	<p>
 		CKFinder may be used in standalone mode inside any page, to create a repository
-		manager with easy. You may define a custom JavaScript function to be called when
+		manager with ease. You may define a custom JavaScript function to be called when
 		an image is selected (double-clicked).</p>
 	<p style="padding-left: 30px; padding-right: 30px;">
 <?php

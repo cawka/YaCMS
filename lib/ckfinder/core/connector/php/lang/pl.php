@@ -1,5 +1,5 @@
 <?php
-// Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
+// Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
 //  Defines the object, for the Polish language. This is the base file for all translations.
@@ -17,7 +17,7 @@ $GLOBALS['CKFLang'] = array (
 		'109' => 'Nieprawiłowe polecenie.',
 		'110' => 'Niezidentyfikowany błąd.',
 		'115' => 'Plik lub katalog o podanej nazwie już istnieje.',
-		'116' => 'Nie znaleziono ktalogu. Odśwież panel i spróbuj ponownie.',
+		'116' => 'Nie znaleziono katalogu. Odśwież panel i spróbuj ponownie.',
 		'117' => 'Nie znaleziono pliku. Odśwież listę plików i spróbuj ponownie.',
 		'118' => 'Ścieżki źródłowa i docelowa są jednakowe.',
 		'201' => 'Plik o podanej nazwie już istnieje. Nazwa przesłanego pliku została zmieniona na "%1"',

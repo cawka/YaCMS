@@ -5,7 +5,6 @@ include_once( dirname(__FILE__) . "/../../../config.php" );
 
 new PermissionsHelper( );
 
-
 /*
  * ### CKFinder : Configuration File - Basic Instructions
  *
@@ -27,7 +26,7 @@ new PermissionsHelper( );
  */
 function CheckAuthentication()
 {
-	return isAdmin( );
+	return isUserLogged();
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
@@ -74,8 +73,9 @@ Examples:
 	$baseDir = resolveUrl($baseUrl);
 
 ATTENTION: The trailing slash is required.
- */
-$baseDir = resolveUrl( $baseUrl );
+*/
+$baseDir = resolveUrl($baseUrl);
+
 /*
  * ### Advanced Settings
  */
