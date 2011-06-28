@@ -40,7 +40,7 @@ class BibwikiHelper extends BaseTableThickBoxHelper
 			$ret=$this->bibformat->map(). " ".$entries[0]['note'];
 			if( isset($entries[0]['url']) && $entries[0]['url']!="" )
 			{
-				$ret=" <a href=\"".$entries[0]['url']."\" target=\"_blank\">$ret</a>";
+				$ret="<a href=\"".$entries[0]['url']."\" target=\"_blank\"><img src='/images/extensions/".FileHelper::extension($entries[0]['url'],"html")."' style='margin:0 5px 0 0; ' /></a> $ret";
 			}
 			unset( $parse );
 
