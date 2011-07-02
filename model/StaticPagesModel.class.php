@@ -28,6 +28,11 @@ class StaticPagesModel extends StaticPagesBaseModel
 
 			parent::getRowToShow( $request );
 	}
+
+	public function createSQL( )
+	{
+		$this->myColumns[]=new DateTimeColumn( "lastmodified", "Last modified" );
+		return parent::createSQL( );
+	}
 }
 
-?>

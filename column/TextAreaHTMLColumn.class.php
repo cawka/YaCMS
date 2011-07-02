@@ -16,7 +16,7 @@ window.addEvent('domready',function(){
         CKEditors.set( '$this->myName', '$this->myName' );
 
         CKFinder.setupCKEditor( editor, { basePath : '$PREFIX"."lib/ckfinder/', rememberLastFolder : true } );
-        CKEDITOR.config.contentsCss='$PREFIX"."css/site.css';
+        CKEDITOR.config.contentsCss='$PREFIX"."css/site-ckeditor.css';
     } );
         </script>";
 	}

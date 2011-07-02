@@ -18,6 +18,13 @@ class TextRevisionsModel extends TableModel
 			$this->myTableName=" texts_history h JOIN (select id as t_id,text as text_orig FROM texts) t ON t_id=h.text_id ";
 			return $this->getRowToShow( $request );
 		}
+
+		public function createSQL( )
+		{
+			$this->myColumns[]=new DateTimeColumn( "modified", "" );
+			$this->myColumns[]=new TextColumn( "text", "" );
+			return parent::createSQL( );
+		}
 }
 
 ?>

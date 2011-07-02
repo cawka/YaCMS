@@ -82,6 +82,12 @@ class TextsModel extends TableModel
 
 		return parent::save_edit( $request );
 	}
+
+	public function createSQL( )
+	{
+		$this->myColumns[]=new DateTimeColumn( "lastmodified", "Last modified" );
+		return parent::createSQL( );
+	}
 }
 
 ?>

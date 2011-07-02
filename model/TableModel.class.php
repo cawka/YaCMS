@@ -51,7 +51,7 @@ class TableModel extends TableSortModel
 
 		$ret="";
 
-		if( isset($request[$col->myName]) && $request[$col->myName]!="" )
+		if( isset($request[$col->myName]) && strlen($request[$col->myName])!=0 )
 		{
 			switch( $colname['type'] )
 			{
