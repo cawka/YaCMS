@@ -14,11 +14,9 @@ class SettingsController extends TableController
 		global $theAPC;
 
 		// settings are the hard-core stuff, so need to clean all caches
-		BaseHelper::clearCache( );
 		$theAPC->clear_all( );
 		
 		return parent::postSave( $tmpl, $request );
 	}
 }
 
-?>

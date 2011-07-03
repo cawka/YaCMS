@@ -23,18 +23,5 @@ class StaticPagesController extends TableController
 	{
 		return parent::show( $tmpl, $request );
 	}
-
-
-	protected function postSave( &$tmpl, &$request )
-	{
-		//clear all static pages. Not necessary, but does not really matter
-		//$tmpl->clearCache( NULL, $this->myModel->myPhp."|show" );
-		return parent::postSave( $tmpl, $request );
-	}
-
-	protected function postDelete( &$tmpl, &$request )
-	{
-		//$tmpl->clearCache( NULL, $this->myModel->myPhp."|show" );
-		return parent::postSave( $tmpl, $request );
-	}
 }
+

@@ -13,9 +13,13 @@ class BibwikiHelper extends BaseTableThickBoxHelper
 
 	function __construct( )
 	{
+		global $SETTINGS;
+		$style="ieee2";
+		if( isset($SETTINGS["bibwiki.style"]) ) $style=$SETTINGS["bibwiki.style"];
+
 		$this->bibformat=new BIBFORMAT( CMSDIR . "/lib/OSBiB", TRUE );
 		list($info, $citation, $footnote, $styleCommon, $styleTypes) =
-		$this->bibformat->loadStyle( CMSDIR . "/lib/OSBiB/styles/bibliography/", "ieee2" );
+		$this->bibformat->loadStyle( CMSDIR . "/lib/OSBiB/styles/bibliography/", $style );
 		$this->bibformat->getStyle( $styleCommon, $styleTypes, $footnote );
 
 //		print_r( $styleTypes );

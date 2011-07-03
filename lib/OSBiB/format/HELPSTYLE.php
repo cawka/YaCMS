@@ -108,13 +108,13 @@ define("EXAMPLE21", "creator, |\"title|%,\" %.\" %|in [i]collection[/i]|%, %edit
 define("EXAMPLE22", "ed Software, \"Mousin' Around.\" Gaborone: Computer Games 'r' Us, 1876.");
 define("EXAMPLE24", "Donald D. A. F. F. Y. de Duck, \"How to Make it Big in Cartoons,\" Mickey de Maus and Goofy, Eds., 3rd ed. Selebi Phikwe: Botswana Books, 2003.");
 
-		include_once("core/html/MISC.php");
-		include_once("core/messages/MESSAGES.php");
+		include_once("../create/MISC.php");
+		include_once("../create/MESSAGES.php");
 		$this->messages = new MESSAGES();
 // Start the templating system
-		include_once("core/template/TEMPLATE.php");
-		$this->template = new TEMPLATE('content');
-		include_once("core/messages/UTF8.php");
+//		include_once("core/template/TEMPLATE.php");
+//		$this->template = new TEMPLATE('content');
+		include_once("../UF8.php");
 		$this->utf8 = new UTF8();
 	}
 // Help page
@@ -179,3 +179,8 @@ define("EXAMPLE24", "Donald D. A. F. F. Y. de Duck, \"How to Make it Big in Cart
 		return $this->template->process();
 	}
 }
+
+
+$x = new HELPSTYLE_en();
+$x->display() ;
+

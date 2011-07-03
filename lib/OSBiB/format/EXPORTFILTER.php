@@ -47,6 +47,12 @@ class EXPORTFILTER
 */
 	function format($data)
         {
+// if( preg_match("/Making Reservations/", $data) )
+// {
+// 			print $data;
+// 			die;
+// }
+
 		if($this->format == 'html')
 		{
 /**
@@ -64,7 +70,8 @@ class EXPORTFILTER
 				$url = FALSE;
 			$data = str_replace("\"", "&quot;", $data);
 			$data = str_replace("<", "&lt;", $data);
-			$data = str_replace(">", "&gt;", $data);    
+			$data = str_replace(">", "&gt;", $data);
+			$data = str_replace("[n]", "<br/>", $data);
 			$data = preg_replace("/&(?![a-zA-Z0-9#]+?;)/", "&amp;", $data);
 			$data = $this->bibformat->patterns ? 
 				preg_replace($this->bibformat->patterns, 

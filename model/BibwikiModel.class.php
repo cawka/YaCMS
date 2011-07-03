@@ -36,8 +36,10 @@ class BibwikiModel extends TableModel
 				            array( "column"=>new BooleanColumn("pdf","Pdfs attached"), "type"=>"custom", "where"=>"(pdf IS NULL OR pdf='')" ),
 					);
 		
+		$this->myIsOffset=false;
+		$this->myParentId="publications";	
 		$this->myOrder="date DESC";
-		$this->RefreshByReload=true;
+// 		$this->RefreshByReload=true;
 
 		$this->mySortColumns=array(
 	            "date"=>array(
@@ -419,6 +421,8 @@ class BibwikiModel extends TableModel
 
 	public function createSQL( )
 	{
+		$this->myColumns[]=new DateColumn("date","");
+		$this->myColumns[]=new TextColumn("entry","");
 //		unset( $this->myColumns['biblio_type1'] );
 		return parent::createSQL( );
 	}

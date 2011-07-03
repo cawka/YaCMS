@@ -82,4 +82,17 @@ class TableController extends BaseController
 
 		$this->postSave( $tmpl,$request );
 	}
+
+	protected function postSave( &$tmpl, &$request )
+	{
+		$tmpl->clearAllCache( );
+		return parent::postSave( $tmpl, $request );
+	}
+
+	protected function postDelete( &$tmpl, &$request )
+	{
+		$tmpl->clearAllCache( );
+		return parent::postDelete( $tmpl, $request );
+	}
 }
+

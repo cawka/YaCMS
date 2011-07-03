@@ -65,11 +65,5 @@ class BibwikiController extends TableController
 		$this->myModel->processEntries();
 		return $this->index( $tmpl, $request );
 	}
-
-//	public function postSave( &$tmpl, &$reqeust )
-//	{
-//		die;
-//	}
 }
 
-?>

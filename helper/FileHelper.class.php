@@ -8,7 +8,7 @@ class FileHelper
 	                   "gif",   "gz",    "hlp",   "htm",   "html",  "iso",
 	                   "jpeg", "jpg",   "js",    "mov",   "mp3",   "mpg",   "odc",
 	                   "odf",  "odg",   "odi",   "odp",   "ods",   "odt",   "ogg",
-	                   "pdf",  "pgp",   "php",   "pl",    "png",   "ppt",   "ps",
+	                   "pdf",  "pgp",   "php",   "pl",    "png",   "ppt",   "pptx", "ps",
 	                   "py",   "ram",   "rar",   "rb",    "rm",    "rpm",
 	                   "rtf",  "sql",   "swf",   "sxc",   "sxd",   "sxi",   "sxw",
 	                   "tar",  "tex",   "tgz",   "txt",   "vcf",   "wav",   "wma",
