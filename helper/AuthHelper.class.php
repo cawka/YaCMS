@@ -10,7 +10,7 @@ class AuthHelper
 	{
 		$this->myController=$controller;
 
-		$this->myRights=$this->getRights( $_SESSION['group'] );
+		$this->myRights=$this->getRights( isset($_SESSION['group'])?$_SESSION['group']:null );
 		if( !is_array($this->myRights) ) $this->myRights=array();
 		
 		if( isset($_SESSION['group']) )
@@ -33,7 +33,7 @@ class AuthHelper
 	
 	public function canUseAction( $controller, $action )
 	{
-		if( $_SESSION['group']=="0" ||
+		if( (isset($_SESSION['group']) && $_SESSION['group']=="0") ||
 			$controller=="public" || 
 			isset($this->myRights[$controller]['all']) ||
 			isset($this->myRights[$controller][$action]) )
