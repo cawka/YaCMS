@@ -9,6 +9,7 @@ class SearchKeywordEmailerHelper extends search_keywords
 				parent::search_keywords( );
 
 				$keys=$this->get_keys();
+
 				if( sizeof($keys)==0    ||
 					$keys[2]=="Unknown" )
 				{
