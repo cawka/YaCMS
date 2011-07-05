@@ -12,7 +12,7 @@ class DownloadTrackingController
 
 	public $myAllowedDirs=array( "data", "papers", "talks");
 	public $myAllowedExtensions=array( 
-		"pdf", "ppt", "pptx", "doc", "docx", "ps", "gz", "tgz"
+		"pdf", "ppt", "pptx", "doc", "docx", "ps", "gz", "tgz", "txt"
 	);
 
 	public function __construct( &$model,&$helper )
@@ -72,9 +72,10 @@ class DownloadTrackingController
 		}
 
 
-		header( 'Content-Description: File Transfer');
+//		header( 'Content-Description: File Transfer');
 		header( 'Content-Type: '.FileHelper::returnMIMEType($info['extension']) );
-		header( 'Content-Disposition: attachment; filename='.basename($file));
+		if( $info['extension']!="txt" ) 
+			header( 'Content-Disposition: attachment; filename='.basename($file));
 		header( 'Content-Transfer-Encoding: binary');
 		header( 'Expires: 0');
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0');
