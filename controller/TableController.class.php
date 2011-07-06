@@ -50,6 +50,7 @@ class TableController extends BaseController
 	
 	public function delete( &$tmpl,&$request )
 	{
+		DBHelper::connect( );
 		$this->myModel->deleteRow( $request );
 		$this->postDelete( $tmpl,$request );
 	}
@@ -57,6 +58,7 @@ class TableController extends BaseController
 	
 	public function save_add( &$tmpl,&$request )
 	{
+		DBHelper::connect( );
 		$status=$this->myModel->validateSave( $request );
 		if( $status!=""  )
 		{
@@ -71,6 +73,7 @@ class TableController extends BaseController
 	
 	public function save_edit( &$tmpl,&$request )
 	{
+		DBHelper::connect( );
 		$status=$this->myModel->validateSave( $request );
 		if( $status!="" )
 		{
