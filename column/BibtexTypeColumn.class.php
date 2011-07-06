@@ -7,6 +7,7 @@ class BibtexTypeColumn extends ListColumn
 		parent::__construct( $name, $descr, "Required", array(
 			"article"=>"Journal paper",
 			"conference"=>"Conference paper",
+			"inproceedings"=>"Conference proceedings",
 			"book"=>"Book",
 			"incollection"=>"Book chapter",
 			"patent"=>"Patent",

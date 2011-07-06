@@ -17,6 +17,17 @@ class DownloadController
 
 	public function __construct( &$model,&$helper )
 	{
+		global $SETTINGS;
+
+		if( isset($SETTINGS['download.allow.dirs']) )
+			$this->myAllowedDirs = $SETTINGS['download.allow.dirs'];
+
+		if( isset($SETTINGS['download.allow.extensions']) )
+			$this->myAllowedExtensions = $SETTINGS['download.allow.extensions'];
+
+		print_r( $this->myAllowedDirs );
+		print_r( $this->myAllowedExtensions );
+
 //		$this->myModel=&$model;
 //		$this->myHelper=&$helper;
 //		$this->myModel->myHelper=&$helper;

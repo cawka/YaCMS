@@ -24,7 +24,7 @@ class MenuModel extends TableModel
 						new HiddenColumn("parent_id",$parent_id ),
 					)
 				);
-				$this->myOrder="display_order";
+				$this->myOrder="display_order, name";
 				$this->myRefreshAction="index";
 		}
 }
