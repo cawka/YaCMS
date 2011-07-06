@@ -16,7 +16,7 @@ class DownloadTrackingController extends DownloadController
 			$date = date(DATE_RFC822);
 
 			file_put_contents( $SETTINGS['download.tracking'], 
-				$request['file']."|"."$date|".$_SERVER['REMOTE_ADDR']."|".
+				$file."|"."$date|".$_SERVER['REMOTE_ADDR']."|".
 				$_SERVER['HTTP_REFERER']."\n", 
 				FILE_APPEND | LOCK_EX );
 		}
