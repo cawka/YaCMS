@@ -36,6 +36,9 @@ class BibwikiController extends TableController
 
 	public function bibtex( &$tmpl, &$request )
 	{
+		$this->myCachingEnabled=true;
+		$this->myCacheId=urlencode( $request[$this->myModel->myId] );
+
 		return $this->showTemplate( $tmpl, $request, "bibwiki/show-bibtex.tpl", "getBibTex" );
 	}
 
