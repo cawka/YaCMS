@@ -54,6 +54,8 @@ class BaseController
 		$tmpl->assign( "this", $this->myModel );
 		if( !$tmpl->isCached($template,$this->myCacheId) )
 		{
+			DBHelper::connect( ); //connect only when not cached
+
 			if( $model_method!="" ) call_user_func( array($this->myModel,$model_method), $request );
 			$tmpl->assign( "this", $this->myModel );
 		}
