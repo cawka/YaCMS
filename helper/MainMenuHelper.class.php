@@ -1,6 +1,5 @@
 <?php
 
-
 class MainMenuHelper
 {
 	public $myData;
@@ -11,20 +10,29 @@ class MainMenuHelper
 
 	public $myLink;
 
-	public function __construct( ) 
+	public $myStart;
+
+	public static function getMenu( $start )
+	{
+		$menu=new MainMenuHelper( $start );
+		return $menu;
+	}
+
+	public function __construct( $start=NULL ) 
 	{
 		global $DB;
 
 		$stuff=preg_split( "/\?/", $_SERVER['REQUEST_URI'] );
 		$this->myLink=$stuff[0];
 
-		$this->myData=$this->getMenuLevel( NULL );
+		$this->myStart=$start;
+		$this->myData=$this->getMenuLevel( $start );
 
 		if( isset($this->myData) )
 		{
 			foreach( $this->myData as $menu )
 			{
-				if( $menu['isselected'] ) 
+				if( isset($menu['isselected']) && $menu['isselected'] ) 
 				{
 					$this->mySelectedId=$menu['id'];
 					$this->mySelectedTitle=$menu['name'];
@@ -38,9 +46,10 @@ class MainMenuHelper
 	private function getMenuLevel( $parent_id )
 	{
 		global $DB, $PREFIX;
+//		if( $parent_id!=$this->myStart ) return NULL;
 
 		$menu=APC_GetRows( array("menu",$parent_id), $DB,
-			"SELECT * FROM menu WHERE (display_order IS NULL OR display_order>=0) AND parent_id".
+			"SELECT * FROM menu WHERE parent_id".
 			(!isset($parent_id)?" IS NULL":"=".$DB->qstr($parent_id)).
 			" ORDER BY display_order,name",
 			0 );
