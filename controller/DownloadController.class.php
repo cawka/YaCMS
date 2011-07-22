@@ -74,8 +74,8 @@ class DownloadController
 
 //		header( 'Content-Description: File Transfer');
 		header( 'Content-Type: '.FileHelper::returnMIMEType($info['extension']) );
-		if( $info['extension']!="txt" ) 
-			header( 'Content-Disposition: attachment; filename='.basename($file));
+	//	if( $info['extension']!="txt" ) 
+	//		header( 'Content-Disposition: attachment; filename='.rawurlencode(basename($file)));
 		header( 'Content-Transfer-Encoding: binary');
 		header( 'Expires: 0');
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0');

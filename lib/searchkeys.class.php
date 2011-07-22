@@ -82,7 +82,7 @@ class search_keywords
 			if (preg_match('/www\.google/', $this->referer))
 			{
 				// Google
-				preg_match("#{$this->sep}q=(.*?)\&#si", $this->referer, $this->keys);
+				preg_match("#{$this->sep}q=(.*?)(\&|$)#si", $this->referer, $this->keys);
 				$this->search_engine = 'Google';
 			}
 			else if (preg_match('/(yahoo\.com|search\.yahoo)/', $this->referer))
