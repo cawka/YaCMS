@@ -27,6 +27,7 @@ class LoginModel extends BaseModel
 	public function tryLogin( &$request )
 	{
 		global $DB;
+		DBHelper::connect( );
 
 		$name=$this->myColumns['login']->getInsert( $request );
 		$pass=md5( md5($request[$this->myColumns['passwd']->myName]) );

@@ -4,6 +4,7 @@ class DownloadNotifyController extends DownloadController
 {
 	protected function track( $file, $info )
 	{
+		global $SETTINGS;
 		new GAHelper( $SETTINGS['ga.account'], $file );
 
 		new SearchKeywordEmailerHelper( );
