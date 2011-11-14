@@ -20,7 +20,6 @@ function allowAccessOnlyToAdmin( $admin="0" )
 function isUserLogged( )
 {
 	global $_SESSION;
-//	print_r( $_SESSION );
 	
 	if( isset($_SESSION['user']) ) 
 	{

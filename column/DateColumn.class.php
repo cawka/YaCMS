@@ -32,8 +32,9 @@ class DateColumn extends BaseColumn
 		$ret="<input type='text' class='datepicker i_int";
 		if( isset($this->myRequired) ) $ret.=" required";
 		$ret.="' title='$this->myRequired' ".
-			 " name=\"$this->myName\" id=\"$this->myName\" value='$value' />";
-
+			 " name=\"$this->myName\" id=\"$this->myName\" value='$value' />
+<A HREF=\"#\" onClick=\"cal1x.select(document.forms[0].$this->myName,'anchor1$this->myName','yyyy-MM-dd'); return false;\" TITLE=\"cal1x.select(document.forms[0].$this->myName,'anchor1$this->myName','yyyy-MM-dd'); return false;\" NAME=\"anchor1$this->myName\" ID=\"anchor1$this->myName\"><img style='vertical-align:text-top;' border=0 src='/images/calendar.jpg'></A> &nbsp;
+";
 		return $ret;
 	}
 
