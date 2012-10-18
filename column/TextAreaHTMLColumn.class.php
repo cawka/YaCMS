@@ -2,9 +2,12 @@
 
 class TextAreaHTMLColumn extends TextAreaColumn 
 {
-	function getInputPostfix( )
+	function getInputPostfix( $row )
 	{
 		global $langdata, $PREFIX;
+
+		if (!isset($row['format']))
+		{
 		
 		return "<script type='text/javascript'>
 window.addEvent('domready',function(){
@@ -18,7 +21,13 @@ window.addEvent('domready',function(){
         CKFinder.setupCKEditor( editor, { basePath : '$PREFIX"."lib/ckfinder/', rememberLastFolder : true } );
         CKEDITOR.config.contentsCss='$PREFIX"."css/site-ckeditor.css';
     } );
-        </script>";
+		</script>";
+		}
+		else
+		{
+			return parent::getInputPostfix ($row);
+			// do nothing
+		}
 	}
 }
 

@@ -13,12 +13,12 @@ class TextAreaColumn extends TextColumn
 		if( $this->myToolTip!="" ) $ret.=" title='$this->myToolTip' ";
 		$ret.=">";
 		$ret.=htmlspecialchars($this->getValue( $row ) )."</textarea><br/>\n".
-		$this->getInputPostfix( );
+		$this->getInputPostfix( $row );
 		
 		return $ret;
 	}
 	
-	function getInputPostfix( )
+	function getInputPostfix( $row )
 	{
 		global $langdata;
 		
