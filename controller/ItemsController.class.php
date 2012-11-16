@@ -8,5 +8,10 @@ class ItemsController extends TableController
 			"common/items.tpl","","common/form.tpl"
 		);
 	}
+
+	public function tex( &$tmpl,&$request )
+	{
+		return $this->showTemplate($tmpl, $request, "resume.tpl", "collectData" );
+	}
 }
 

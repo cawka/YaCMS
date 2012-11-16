@@ -30,6 +30,7 @@ class BibwikiHelper extends BaseTableThickBoxHelper
 
 	public function format_reference( &$entry )
 	{
+		global $PREFIX;
 			$parse = NEW PARSEENTRIES( );
 			$parse->expandMacro = TRUE;
 			$parse->fieldExtract = TRUE;
@@ -44,7 +45,7 @@ class BibwikiHelper extends BaseTableThickBoxHelper
 			$ret=$this->bibformat->map(). " ".$entries[0]['note'];
 			if( isset($entries[0]['url']) && $entries[0]['url']!="" )
 			{
-				$ret="<a href=\"".$entries[0]['url']."\" target=\"_blank\"><img src='/images/extensions/".FileHelper::extension($entries[0]['url'],"html")."' style='margin:0 5px 0 0; ' /></a> $ret";
+				$ret="<a href=\"".$entries[0]['url']."\" target=\"_blank\"><img src='$PREFIX/images/extensions/".FileHelper::extension($entries[0]['url'],"html").".png' style='margin:0 5px 0 0; ' /></a> $ret";
 			}
 			unset( $parse );
 

@@ -18,7 +18,7 @@ class ItemsModel extends TableModel
 			new TextColumn("years","Years"),
 			new IntegerColumn("msort","Manual Sort"),
 			) );
-		$this->myOrder="years DESC";
+		$this->myOrder="msort DESC, years DESC";
 
 		$this->RefreshByReload=true;
 //		$this->myElementsPerPage=30;

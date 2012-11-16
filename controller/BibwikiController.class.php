@@ -34,6 +34,11 @@ class BibwikiController extends TableController
 #		return "$request[action]|".(isset($request[$this->myModel->myId])?"|".$request[$this->myModel->myId]."":"");
 	}
 
+	public function tex( &$tmpl,&$request )
+	{
+	  return $this->showTemplate($tmpl, $request, "resume-bib.tpl", "collectData" );
+	}
+
 	public function bibtex( &$tmpl, &$request )
 	{
 		$this->myCachingEnabled=true;
