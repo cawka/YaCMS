@@ -16,11 +16,12 @@ class TextsModel extends TableModel
 
 		parent::__construct( $DB, $php, "texts", array(
 			new RevisionsColumn( "Revisions" ),
-			new TextAreaHTMLColumn("text","Content",NULL,false,""," ckhtml"),
+			new ListColumn ("format", "Page format", NULL, array(""=>"html", "0"=>"markdown")),
+			'textarea' => new TextAreaHTMLColumn("text","Content",NULL,false,""," ckhtml"),
 			'page_id'=>new HiddenColumn("page_id",$page_id),
 			'page_block'=>new HiddenColumn("page_block",$page_block), 
 		)
-	);
+		);
 
 		$this->RefreshByReload=true;
 		//				$this->myRefreshAction="show";

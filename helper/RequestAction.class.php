@@ -39,7 +39,7 @@ class RequestAction
 			$class->myAction=$_REQUEST['action'];
 
 			call_user_func_array( array($class,$_REQUEST['action']),
-								  array(&$this->myTemplate,&$_REQUEST) );
+					      array(&$this->myTemplate,&$_REQUEST) );
 		}
 		else
 			return $this->actionUndefined( );

@@ -283,10 +283,16 @@ class TableModel extends TableSortModel
 	{
 		$id=$request[$this->myId];
 		
-		$sql="DELETE FROM $this->myTableName WHERE $this->myId='$id'";
+
+		#$sql="DELETE FROM $this->myTableName WHERE $this->myId='$id'";
+		$sql=sprintf("DELETE FROM %s WHERE %s=%s",
+		             $this->myTableName, $this->myId, $this->myDB->qstr($id));
 		if( $this->myExtraWhere!="" ) $sql.=" AND ".$this->myExtraWhere;
 
-		if( isset($id) ) $this->myDB->Execute( $sql );
+		if( isset($id) )
+		{ 
+			$this->myDB->Execute( $sql );
+		}
 	}
 	
 	protected function saveRowUpdate( $id, &$request )
@@ -305,6 +311,7 @@ class TableModel extends TableSortModel
 
 			if( $i>0 ) $ret.=",";
 			$ret.=$col->getUpdate( $request );
+
 			$i++;			
 		}
 		$ret.=" WHERE $this->myId";

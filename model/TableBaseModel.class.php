@@ -189,4 +189,24 @@ class TableBaseModel extends BaseModel
 	{
 		return true;
 	}
+
+	public function createRSS ()
+	{
+		$arr = $_REQUEST;
+
+		unset($arr['_m']);
+		unset($arr['action']);
+		$arr['rss']=1;
+		$arr['user']=$_SESSION['user'];
+		$arr['auth']=$_SESSION['auth'];
+		$this->myFeedString =http_build_query($arr);
+		$this->myFeedEsc    =urlencode($this->myFeedString);
+
+		unset($arr['rss']);
+		unset($arr['user']);
+		unset($arr['auth']);
+		$this->myQueryString=http_build_query($arr);
+		$this->myQueryEsc   =urlencode($this->myQueryString);
+		$this->myRssData['lastBuildDate'] = date('r');
+	}
 }

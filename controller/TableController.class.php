@@ -18,12 +18,13 @@ class TableController extends BaseController
 	public function index( &$tmpl,&$request )
 	{
 		global $LANG;
-		
+
 		$template=$this->myTemplate;
 		if( isset($request['rss']) ) 
 		{
-			header( "Content-type: application/rss+xml; charset=utf-8" );
-			$template.=".rss.xml";
+			$template = str_replace('../', '', $this->myModel->myResultContent) . ".rss.xml";
+			header ("Content-Type:text/xml; charset=utf-8" );
+			//$template.=".rss.xml";
 		}
 	
 		return $this->showTemplate( $tmpl, $request, $template, "collectData" );
@@ -31,6 +32,16 @@ class TableController extends BaseController
 	
 	public function show( &$tmpl,&$request )
 	{
+		global $LANG;
+
+		if( isset($request['rss']) ) 
+		{
+			$template=$this->myTemplate;
+			$template.=".rss.xml";
+                        header ("Content-Type:text/xml; charset=utf-8" );
+			return $this->showTemplate( $tmpl, $request, $template, "collectData" );
+		}
+
 		return $this->showTemplate( $tmpl, $request, $this->myTemplateOne, "getRowToShow" );
 	}
 	
