@@ -4,7 +4,7 @@ include_once ("lib/markdown/markdown.php");
 
 class MarkdownHelper
 {
-	public function format ($text)
+	public static function format ($text)
 	{
 		return Markdown ($text);
 	}

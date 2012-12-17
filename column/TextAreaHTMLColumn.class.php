@@ -2,7 +2,7 @@
 
 class TextAreaHTMLColumn extends TextAreaColumn 
 {
-	function getInputPostfix( $row )
+	function getInputPostfix( &$row )
 	{
 		global $langdata, $PREFIX;
 

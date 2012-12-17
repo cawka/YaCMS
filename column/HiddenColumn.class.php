@@ -10,7 +10,7 @@ class HiddenColumn extends BaseColumn
 		$this->myValue=$value;
 	}
 	
-	function getValue( )
+	function getValue( &$row )
 	{
 		return $this->myValue;
 	}
