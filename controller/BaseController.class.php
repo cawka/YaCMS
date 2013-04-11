@@ -116,8 +116,10 @@ class BaseController
 		if( !isset($request['ajax']) )
 			$this->myHelper->closeWindow( ); 
 		else 
+		{	
 //			$this->showTemplate( $tmpl,$request,"common/smoothbox_close.tpl","" );
 			$this->index( $tmpl,$request );
+		}
 	}
 }
 

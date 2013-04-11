@@ -1,6 +1,6 @@
 <?php
 
-require_once( "../lib/recaptcha/recaptchalib.php" );
+require_once( BASEDIR . "/CMS/lib/recaptcha/recaptchalib.php" );
 
 class ReCaptchaColumn extends BaseColumn
 {
@@ -10,18 +10,19 @@ class ReCaptchaColumn extends BaseColumn
 		
 		parent::__construct( $name, $descr );
 		$this->mySQL=false;
-		$this->myRequired=$langdata['captcha_error'];
+		$this->myRequired="Enter the security code";
 	}
 
 	public function getInput( &$row )
 	{
 		global $LANG;
 
-		$ret="<div id='$this->myName'></div>";
-		$ret.="<script type='text/javascript'>Recaptcha.create( \"".RECAPTCHA_PUBLIC."\", ".
-			"\"$this->myName\", { ".
-            "theme: \"clear\", ".
-            "lang: \"en\" });</script>";
+		$ret = "<div id='$this->myName'></div>";
+		$ret .= recaptcha_get_html (RECAPTCHA_PUBLIC);
+#		$ret.="<script type='text/javascript'>Recaptcha.create( \"".RECAPTCHA_PUBLIC."\", ".
+#			"\"$this->myName\", { ".
+#            "theme: \"clear\", ".
+#            "lang: \"en\" });</script>";
 
 		return $ret;
 	}
@@ -36,10 +37,13 @@ class ReCaptchaColumn extends BaseColumn
 										$request["recaptcha_response_field"] );
 		if( !$resp->is_valid )
 		{
+			$this->myError="Incorrect security code";
 			return false;
 		}
 		else
+		{
 			return true;
+		}
 	}
 }
 
