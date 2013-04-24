@@ -60,7 +60,7 @@ class ListColumn extends BaseColumn
 		return $this->myOptions[$row[$this->myName]];
 	}
 
-	function getXML( $row )
+	function getXML( &$row )
 	{
 		$ret="<!-- $this->myDescription \n";
 		foreach( $this->myOptions AS $key=>$value )

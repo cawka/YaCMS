@@ -95,7 +95,7 @@ class TextColumn extends BaseColumn
 		return $this->extractBriefValue( $row );
 	}
 
-        function getXML( $request )
+        function getXML( &$request )
 	{
 		$ret="<!-- $this->myDescription -->\n";
                 return $ret."<$this->myName><![CDATA[".$this->extractXMLValue($request)."]]></$this->myName>\n";

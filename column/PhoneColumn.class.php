@@ -127,7 +127,7 @@ class PhoneColumn extends GroupColumn
 		return parent::extractAdminValue( $request );
 	}
 
-	function getXML( $request )
+	function getXML( &$request )
 	{
 		$ret="<!-- $this->myDescription -->\n";
 		return $ret."<$this->myName"."_num>".$this->myColumns['phone']->extractXMLValue($request)."</$this->myName"."_num>";

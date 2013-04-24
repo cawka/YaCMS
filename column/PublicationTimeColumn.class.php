@@ -50,7 +50,7 @@ class PublicationTimeColumn extends ListColumn
 			return 5; //maximum publication time
 	}
 
-	function getXML( $row )
+	function getXML( &$row )
 	{
 		$ret="<!-- $this->myDescription -->\n";
 		$ret.="<publ_begin>".$row['publ_begin']."</publ_begin>\n";

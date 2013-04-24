@@ -59,7 +59,7 @@ class ListDBColumn extends ListColumn
 		return parent::checkBeforeSave( $row );
 	}
 
-	function getXML( $row )
+	function getXML( &$row )
 	{
 		return BaseColumn::getXML( $row );
 	}

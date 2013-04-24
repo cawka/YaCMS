@@ -27,7 +27,7 @@ class PriceColumn extends BaseColumn
 			return $row[$this->myName."_cur"];
 	}
 
-	function getXML( $row )
+	function getXML( &$row )
 	{
 		$ret="<!-- $this->myDescription -->";
 	}

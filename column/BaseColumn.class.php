@@ -123,7 +123,7 @@ class BaseColumn
 		return $this->myName;
 	}
 
-	function getXML( $request )
+	function getXML( &$request )
 	{
 		if( !$this->mySQL || $this->myGenType=="separator" ) return "";
 		if( "$this->myDescription"!="" ) 

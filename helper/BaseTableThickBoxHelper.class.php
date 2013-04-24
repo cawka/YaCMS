@@ -5,6 +5,7 @@ class BaseTableThickBoxHelper extends BaseTableHelper
 	public function form_action( &$model, $action, $validate,$params=array(),&$options )
 	{
 		if( isset($_REQUEST['ajax']) ) $params['ajax']=true;
+		if( isset($_REQUEST['ajax2']) ) $params['ajax2']=true;
 		
 		return parent::form_action( $model,$action,$validate,$params,$options );
 	}	
