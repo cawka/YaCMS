@@ -26,9 +26,9 @@ class TextLangColumn extends TextColumn
 		foreach( $LANGS as $lang_id=>$lang )
 		{
 			if( !$arr_id )
-				$texts[$lang_id]=$DB->qstr( stripslashes($request[$name.'_'.$lang]) );
+				$texts[$lang_id]=$DB->qstr( $request[$name.'_'.$lang] );
 			else
-				$texts[$lang_id]=$DB->qstr( stripslashes($request[$name.'_'.$lang][$arr_id]) );
+				$texts[$lang_id]=$DB->qstr( $request[$name.'_'.$lang][$arr_id] );
 		}
 	
 		if( $id==0 )

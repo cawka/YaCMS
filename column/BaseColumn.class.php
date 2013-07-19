@@ -45,7 +45,7 @@ class BaseColumn
 			return "NULL";
 		else
 		{
-			return $DB->qstr( stripslashes($request[$this->myName]) );
+			return $DB->qstr( $request[$this->myName] );
 		}
 	}
 	

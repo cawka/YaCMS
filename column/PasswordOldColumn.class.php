@@ -29,7 +29,7 @@ class PasswordOldColumn extends TextColumn
 		}
 
 		$ret=$DB->GetOne( "SELECT $this->myTableField FROM $this->myTable WHERE $this->myTableField=".
-							$DB->qstr( md5(stripslashes($request[$this->myName])) ) );
+							$DB->qstr( md5($request[$this->myName]) ) );
 		
 		if( !$ret )
 		{

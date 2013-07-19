@@ -49,7 +49,7 @@ class TextColumn extends BaseColumn
 		if( !isset($ret) || $ret=="" )
 			return "NULL";
 		else
-			return $DB->qstr( stripslashes($ret) );
+			return $DB->qstr( $ret );
 	}
 	
 	function getInput( &$row )

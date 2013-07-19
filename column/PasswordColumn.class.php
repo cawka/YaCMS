@@ -70,7 +70,7 @@ class PasswordColumn extends TextColumn
 			return "NULL";
 		else
 		{
-			return $DB->qstr( md5(stripslashes($request[$this->myName])) );
+			return $DB->qstr( md5($request[$this->myName]) );
 		}
 	}
 	
