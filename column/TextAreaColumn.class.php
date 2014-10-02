@@ -2,7 +2,7 @@
 
 class TextAreaColumn extends TextColumn 
 {
-	function getInput( $row )
+	function getInput( &$row )
 	{
 		$classes=array("addann_textarea");
 		if( $this->myToolTip!="" ) array_push( $classes, "tooltip" );
@@ -18,7 +18,7 @@ class TextAreaColumn extends TextColumn
 		return $ret;
 	}
 	
-	function getInputPostfix( $row )
+	function getInputPostfix( &$row )
 	{
 		global $langdata;
 		

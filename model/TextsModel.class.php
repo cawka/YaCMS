@@ -31,9 +31,10 @@ class TextsModel extends TableModel
 	{
 		if( isset($request['id']) ) return parent::rowId( $request );
 
-		$ret="page_id=".$this->myDB->qstr($this->myColumns['page_id']->getValue()).
+		$null = NULL;
+		$ret="page_id=".$this->myDB->qstr($this->myColumns['page_id']->getValue($null)).
 			" AND ".
-			"page_block=".$this->myDB->qstr($this->myColumns['page_block']->getValue());
+			"page_block=".$this->myDB->qstr($this->myColumns['page_block']->getValue($null));
 		return $ret;
 	}
 
