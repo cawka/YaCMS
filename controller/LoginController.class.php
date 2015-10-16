@@ -17,14 +17,14 @@ class LoginController extends BaseController
 			exit;
 		}
 		else
-			return $this->index( &$tmpl, &$request );
+			return $this->index( $tmpl, $request );
 	}
 	
 	public function login( &$tmpl, &$request )
 	{
 		global $PREFIX;
 
-		if( isUserLogged() ) return $this->logout( &$tmpl, $request );
+		if( isUserLogged() ) return $this->logout( $tmpl, $request );
 		$this->myModel->clearSessionData( );	
 
 		$status=$this->myModel->validateSave( $request );
