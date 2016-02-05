@@ -23,7 +23,12 @@ class ListColumn extends BaseColumn
 	
 	function checkBeforeSave( &$request )
 	{
-		return isset( $this->myOptions[$request[$this->myName]] );
+		if (!isset( $this->myOptions[$request[$this->myName]] ))
+		{
+			$this->myError = "Failed";
+			return false;
+		}
+		return true;
 	}
 		
 	function getInput( &$row )

@@ -4,6 +4,7 @@ spl_autoload_register( "cms_autoload" );
 
 // require_once( "lib/adodb/adodb-exceptions.inc.php");
 require_once( "lib/adodb/adodb.inc.php" );
+require_once ( "lib/adodb/adodb-iterator.inc.php");
 
 require_once( "lib/Smarty/Smarty.class.php" );
 require_once( "lib/MySmarty.class.php" );

@@ -16,7 +16,7 @@ class BaseColumn
 	var $myToolTip="";
 	var $mySpecType="";
 	var $myIsBriefInTop=true;
-	
+
 	function __construct( $name,$descr,$visible=true,$required=NULL,$brief=false,$brmsg="",$readonly=false )
 	{
 		$this->myName=$name;
@@ -27,14 +27,24 @@ class BaseColumn
 		$this->myBriefMsg=$brmsg;
 		$this->myIsReadonly=$readonly;
 	}
-	
+
 	function getUpdateName()
 	{
 		return $this->myName;
 	}
-	
-	function checkBeforeSave( &$request ) 
+
+	function checkBeforeSave( &$request )
 	{
+		if ($this->myRequired)
+		{
+			if (!isset ($request[$this->myName]) ||
+				$request[$this->myName] == '')
+			{
+				$this->myError=$this->myRequired;
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -48,27 +58,27 @@ class BaseColumn
 			return $DB->qstr( stripslashes($request[$this->myName]) );
 		}
 	}
-	
+
 	function getId( )
     {
             return $this->myName;
     }
-    
+
 	function getUpdate( &$request )
 	{
 		return $this->getUpdateName()."=".$this->getInsert( $request );
 	}
-	
+
 	function getTitle( )
 	{
 		return $this->myDescription;
 	}
-	
+
 	function getValue( &$row )
 	{
 		//do nothing
 	}
-	
+
 	function getInput( &$row )
 	{
 		//do nothing
@@ -88,26 +98,26 @@ class BaseColumn
 	function postInsert( $id,&$data )
 	{
 	}
-	
+
 	function postUpdate( $id,&$data )
 	{
 	}
-	
+
 	function extractValue( &$row )
 	{
 		return $row[$this->myName];
 	}
-	
+
 	function extractBriefValue( &$row )
 	{
 		return $this->extractValue( $row );
 	}
-	
+
 	function extractPreviewValue( &$row )
 	{
 		return $this->extractValue( $row );
 	}
-	
+
 	function extractAdminValue( &$row )
 	{
 		return $this->extractValue( $row );
@@ -117,7 +127,7 @@ class BaseColumn
 	{
 		return $row[$this->myName];
 	}
-	
+
 	function getSortName( )
 	{
 		return $this->myName;
@@ -126,7 +136,7 @@ class BaseColumn
 	function getXML( &$request )
 	{
 		if( !$this->mySQL || $this->myGenType=="separator" ) return "";
-		if( "$this->myDescription"!="" ) 
+		if( "$this->myDescription"!="" )
 			$ret="<!-- $this->myDescription -->\n";
 		else
 			$ret="";
@@ -135,6 +145,6 @@ class BaseColumn
 
 	public function getSQLType( )
 	{
-		return "text";	
+		return "text";
 	}
 }

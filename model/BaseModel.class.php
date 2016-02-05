@@ -59,7 +59,10 @@ class BaseModel
 			$ret=$col->checkBeforeSave( $request );
 			if( !$ret ) 
 			{
-				return $col->myError;
+				if (isset($col->myError) && $col->myError != "")
+					return $col->myError;
+				else
+					return "Failed";
 			}
 		}
 

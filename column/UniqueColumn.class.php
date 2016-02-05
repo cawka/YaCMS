@@ -16,6 +16,12 @@ class UniqueColumn extends TextColumn
 	function checkBeforeSave( &$request )
 	{
 		global $langdata,$DB;
+		DBHelper::connect ();
+		if (!isset($request[$this->myName]) ||
+			$request[$this->myName] == '')
+		{
+			return false;
+		}
 		
 		$data=$DB->GetOne( "SELECT $this->myName FROM $this->myTableName WHERE $this->myName=".$this->getInsert($request) );
 		if( $data )
