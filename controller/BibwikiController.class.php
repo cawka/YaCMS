@@ -1,13 +1,13 @@
 <?php
 
-class BibwikiController extends TableController 
+class BibwikiController extends TableController
 {
 	public function __construct( &$model, &$helper )
 	{
 		parent::__construct( $model,$helper,
 							 "bibwiki/list.tpl", "bibwiki/show.tpl", "common/form.tpl" );
 	}
-	
+
 /*	public function keywords( &$tmpl, &$request )
 	{
 		return $this->showTemplate( $tmpl, $request, "bibwiki_keywords.tpl", "prepareKeywords" );
@@ -39,6 +39,18 @@ class BibwikiController extends TableController
 	  return $this->showTemplate($tmpl, $request, "resume-bib.tpl", "collectData" );
 	}
 
+	public function exportbib( &$tmpl,&$request )
+	{
+      header ("Content-Type:text/plain; charset=utf-8" );
+	  return $this->showTemplate($tmpl, $request, "bibwiki/export-bib.tpl", "collectData" );
+	}
+
+	public function exportreport( &$tmpl,&$request )
+	{
+      header ("Content-Type:text/plain; charset=utf-8" );
+	  return $this->showTemplate($tmpl, $request, "bibwiki/export-report.tpl", "collectData" );
+	}
+
 	public function bibtex( &$tmpl, &$request )
 	{
 		$this->myCachingEnabled=true;
@@ -62,16 +74,15 @@ class BibwikiController extends TableController
 	{
 		return $this->showTemplate( $tmpl, $request, "common/form.tpl", "prepareImport" );
 	}
-	
+
 	public function import_save( &$tmpl, &$request )
 	{
 		return $this->showTemplate( $tmpl, $request, "bibwiki/importstatus.tpl", "import" );
 	}
-	
+
 	public function processEntries( &$tmpl, &$reqeust )
 	{
 		$this->myModel->processEntries();
 		return $this->index( $tmpl, $request );
 	}
 }
-
