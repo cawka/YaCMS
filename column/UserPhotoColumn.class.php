@@ -299,7 +299,7 @@ class UserPhotoColumn extends BaseColumn
 //			return "<img src=\"images/nophoto.gif\" />";
 	}
 	
-	function extractXMLValue( $row )
+	function extractXMLValue( &$row )
 	{
 		$ret="\n";
 		for( $i=0; $i<$this->myCount; $i++ ) 

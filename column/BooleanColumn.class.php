@@ -58,7 +58,7 @@ class BooleanColumn extends BaseColumn
 			return "";
 	}
 
-	public function getXML( $row )
+	public function getXML( &$row )
 	{
 		$ret="<!-- $this->myBriefMsgRH: t=>True f=>False -->\n";
 		return $ret.parent::getXML( $row );

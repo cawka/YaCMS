@@ -40,7 +40,7 @@ class EmailColumn extends  TextColumn
 		return parent::extractValue( $row );
 	}
 
-	function extractXMLValue( $row )
+	function extractXMLValue( &$row )
 	{
 		return "hidden";
 	}
